@@ -6,7 +6,7 @@
 # ============================================
 tap "clojure/tools"
 tap "clojure-lsp/brew"
-tap "homebrew/cask-fonts"
+# Nota: homebrew/cask-fonts foi deprecado, fontes agora estão em homebrew/cask
 
 # ============================================
 # Shell & Terminal

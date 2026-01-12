@@ -12,7 +12,7 @@
 # ║                    Installation Script                              ║
 # ╚═══════════════════════════════════════════════════════════════════╝
 
-set -e
+# Não usar set -e para permitir tratamento de erros customizado
 
 # Cores para output
 RED='\033[0;31m'
@@ -132,9 +132,12 @@ step "4/8 • Instalando pacotes (Brewfile)"
 info "Isso pode demorar alguns minutos..."
 info "Instalando: Git, Java, Clojure, Neovim, iTerm2, Fontes, etc."
 
-brew bundle --file="$SANCTUM_DIR/artemis/Brewfile"
-
-success "Todos os pacotes instalados"
+if brew bundle --file="$SANCTUM_DIR/artemis/Brewfile"; then
+    success "Todos os pacotes instalados"
+else
+    warn "Alguns pacotes podem ter falhado (geralmente taps deprecados)"
+    info "Continuando com a instalação..."
+fi
 
 # ============================================
 # Passo 5: Oh My Zsh

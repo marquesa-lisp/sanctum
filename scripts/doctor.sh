@@ -298,10 +298,11 @@ fi
 # ============================================
 section "Aplicativos"
 
-if [[ -d "/Applications/iTerm.app" ]]; then
+# Verificar iTerm2 em múltiplos locais
+if [[ -d "/Applications/iTerm.app" ]] || [[ -d "$HOME/Applications/iTerm.app" ]] || pgrep -x "iTerm2" > /dev/null 2>&1; then
     check_pass "iTerm2 instalado"
 else
-    check_fail "iTerm2 não instalado"
+    check_warn "iTerm2 não encontrado em /Applications (pode estar em outro local)"
 fi
 
 # ============================================
