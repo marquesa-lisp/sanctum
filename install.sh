@@ -189,7 +189,10 @@ success "~/.p10k.zsh → sanctum/config/p10k.zsh"
 
 # Neovim
 mkdir -p "$HOME/.config"
-if [[ -d "$HOME/.config/nvim" && ! -L "$HOME/.config/nvim" ]]; then
+if [[ -L "$HOME/.config/nvim" ]]; then
+    # Remove symlink existente (pode apontar para outro lugar)
+    rm "$HOME/.config/nvim"
+elif [[ -d "$HOME/.config/nvim" ]]; then
     info "Backup: ~/.config/nvim → ~/.config/nvim.backup"
     mv "$HOME/.config/nvim" "$HOME/.config/nvim.backup"
 fi
@@ -222,6 +225,10 @@ if [[ "$SHELL" != *"zsh"* ]]; then
     info "Mudando shell padrão para zsh..."
     chsh -s "$(which zsh)"
 fi
+
+# Recarregar zshrc para aplicar JAVA_HOME e outras configs
+info "Recarregando configurações do Zsh..."
+export JAVA_HOME=$(/usr/libexec/java_home -v23 2>/dev/null || /usr/libexec/java_home 2>/dev/null)
 
 # Rodar doctor
 echo ""
