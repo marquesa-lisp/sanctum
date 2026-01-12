@@ -1,18 +1,23 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
-# Theme
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="lambda"
+# Theme - Powerlevel10k
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
-# Standard plugins can be found in $ZSH/plugins/
-# Custom plugins may be added to $ZSH_CUSTOM/plugins/
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(git fzf zsh-autosuggestions tmux z)
+# Plugins
+# Standard plugins: $ZSH/plugins/
+# Custom plugins: $ZSH_CUSTOM/plugins/
+plugins=(git zsh-syntax-highlighting zsh-autosuggestions)
 
 # Exports
 export EDITOR=nvim
-export TERM="tmux-256color"
+export TERM="xterm-256color"
 export GPG_TTY=$(tty)
 
 # History
@@ -42,14 +47,15 @@ source $ZSH/oh-my-zsh.sh
 PATH="$HOME/.local/bin:/usr/local/bin":$PATH
 PATH="$HOME/.cargo/bin:$HOME/.cargo/bin/racer":$PATH
 
-# Brew
+# Brew (macOS)
 export PATH="/opt/homebrew/bin:$PATH"
 
-# Aliases
+# Aliases - General
 alias vim="nvim"
 alias n="nvim"
+alias ls='colorls'
 
-# git
+# Aliases - Git
 alias ga='git add'
 alias gc='git commit'
 alias gl='git prettylog'
@@ -61,31 +67,27 @@ alias gco='git checkout'
 alias gcp='git cherry-pick'
 alias gdiff='git diff'
 
-# clojure
+# Aliases - Clojure
 alias clj='rlwrap clojure'
 alias lt='lein test'
 alias ct='clj -A:test'
-
-# lazygit
-alias lg='lazygit'
-
-# datomic
-alias start-transactor-dev='~/datomic/datomic-pro-1.0.7187/bin/transactor ~/datomic/datomic-pro-1.0.7187/config/dev-transactor-template.properties'
-
-# deps-new
 alias cljn='clojure -Tnew app :name'
 
-# java home
-export JAVA_11_HOME=$(/usr/libexec/java_home -v11)
-export JAVA_23_HOME=$(/usr/libexec/java_home -v23)
-export JAVA_24_HOME=$(/usr/libexec/java_home -v24) # graalvm 24
+# Aliases - Tools
+alias lg='lazygit'
+alias start-transactor-dev='~/datomic/datomic-pro-1.0.7187/bin/transactor ~/datomic/datomic-pro-1.0.7187/config/dev-transactor-template.properties'
+
+# Java Home (macOS)
+export JAVA_11_HOME=$(/usr/libexec/java_home -v11 2>/dev/null)
+export JAVA_23_HOME=$(/usr/libexec/java_home -v23 2>/dev/null)
+export JAVA_24_HOME=$(/usr/libexec/java_home -v24 2>/dev/null) # graalvm 24
 
 alias java11='export JAVA_HOME=$JAVA_11_HOME'
 alias java23='export JAVA_HOME=$JAVA_23_HOME'
 alias java24='export JAVA_HOME=$JAVA_24_HOME'
 alias graalvm24='export JAVA_HOME=$JAVA_24_HOME'
 
-# default java 23
+# Default Java
 export JAVA_HOME=$JAVA_23_HOME
 
 # jdklink function to create a symlink for OpenJDK (if not automatically linked)
@@ -97,5 +99,14 @@ jdklink() {
   sudo ln -sfn /opt/homebrew/opt/openjdk/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk-"$1".jdk
 }
 
-# work specific configs (git ignored)
+# Syntax highlighting (Homebrew)
+source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
+
+# Powerlevel10k theme (Homebrew)
+source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme 2>/dev/null
+
+# Load p10k configuration
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# Work specific configs (git ignored)
 [ -f ~/.workrc ] && source ~/.workrc

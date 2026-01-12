@@ -1,0 +1,78 @@
+# Brewfile - Homebrew packages for macOS
+# Usage: brew bundle --file=~/Dev/github/sanctum/artemis/Brewfile
+
+# ============================================
+# Taps (repositórios adicionais)
+# ============================================
+tap "clojure/tools"
+tap "clojure-lsp/brew"
+tap "homebrew/cask-fonts"
+
+# ============================================
+# Shell & Terminal
+# ============================================
+brew "zsh-autosuggestions"       # Sugestões de comandos no terminal
+brew "zsh-syntax-highlighting"   # Syntax highlighting no terminal
+brew "powerlevel10k"             # Tema para o prompt do Zsh
+
+# ============================================
+# Editores & Ferramentas de Dev
+# ============================================
+brew "git"                       # Controle de versão (versão atualizada)
+brew "neovim"                    # Editor de texto no terminal
+brew "ripgrep"                   # Busca rápida (usado pelo Telescope no nvim)
+brew "gh"                        # GitHub CLI
+
+# ============================================
+# Java & JVM
+# ============================================
+brew "openjdk"                   # OpenJDK (última versão)
+brew "openjdk@11"                # OpenJDK 11 (LTS)
+brew "openjdk@17"                # OpenJDK 17 (LTS)
+brew "openjdk@21"                # OpenJDK 21 (LTS)
+brew "maven"                     # Build tool para Java
+brew "glassfish"                 # Application server
+
+# ============================================
+# Clojure
+# ============================================
+brew "clojure/tools/clojure"     # Clojure CLI tools
+brew "clojure-lsp/brew/clojure-lsp-native"  # Language Server Protocol
+
+# ============================================
+# JavaScript/Node
+# ============================================
+brew "node"                      # Node.js (última versão)
+brew "node@18"                   # Node.js 18 (LTS)
+
+# ============================================
+# Utilitários
+# ============================================
+brew "jq"                        # Processador de JSON no terminal
+brew "htop"                      # Monitor de processos (melhor que top)
+brew "neofetch"                  # Info do sistema (para screenshots bonitos)
+brew "rlwrap"                    # Readline wrapper (usado com clojure)
+brew "lazygit"                   # Git TUI (interface gráfica no terminal)
+brew "fzf"                       # Fuzzy finder (busca rápida)
+
+# ============================================
+# Fun stuff
+# ============================================
+brew "cowsay"                    # Vaquinha falante
+brew "fortune"                   # Frases aleatórias
+brew "sl"                        # Steam Locomotive (quando erra 'ls')
+
+# ============================================
+# Cask - Aplicativos GUI
+# ============================================
+cask "iterm2"                    # Terminal avançado para macOS
+cask "algoapp"                   # Algoritmos visualizados
+
+# ============================================
+# Fonts (Nerd Fonts - com ícones)
+# ============================================
+cask "font-jetbrains-mono"               # JetBrains Mono (sem nerd icons)
+cask "font-jetbrains-mono-nerd-font"     # JetBrains Mono Nerd Font
+cask "font-fira-code-nerd-font"          # Fira Code Nerd Font
+cask "font-meslo-lg-nerd-font"           # Meslo Nerd Font (usado pelo p10k)
+cask "font-monaspice-nerd-font"          # Monaspace Nerd Font
