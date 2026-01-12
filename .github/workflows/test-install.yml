@@ -1,0 +1,90 @@
+name: 🧪 Test Sanctum Install
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  # Permite rodar manualmente pelo GitHub
+  workflow_dispatch:
+
+jobs:
+  test-install:
+    name: 🍎 Test on macOS
+    runs-on: macos-latest
+    
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🔍 Show macOS version
+        run: |
+          sw_vers
+          echo "---"
+          uname -a
+
+      - name: 🚀 Run install.sh
+        run: |
+          chmod +x ./install.sh
+          ./install.sh
+        env:
+          # Não interativo
+          NONINTERACTIVE: 1
+
+      - name: 🏥 Run doctor.sh
+        run: |
+          chmod +x ./scripts/doctor.sh
+          ./scripts/doctor.sh
+
+      - name: ✅ Verify symlinks
+        run: |
+          echo "Checking symlinks..."
+          ls -la ~/.zshrc
+          ls -la ~/.p10k.zsh
+          ls -la ~/.config/nvim
+          ls -la ~/.clojure/deps.edn
+          ls -la ~/.config/clojure-lsp/config.edn
+
+      - name: 🔧 Verify tools installed
+        run: |
+          echo "=== Homebrew ==="
+          brew --version
+          
+          echo "=== Git ==="
+          git --version
+          
+          echo "=== Neovim ==="
+          nvim --version | head -1
+          
+          echo "=== Clojure ==="
+          clojure --version
+          
+          echo "=== Java ==="
+          java -version
+          
+          echo "=== Node ==="
+          node --version
+          
+          echo "=== lazygit ==="
+          lazygit --version
+          
+          echo "=== fzf ==="
+          fzf --version
+          
+          echo "=== ripgrep ==="
+          rg --version | head -1
+
+  # Job opcional para testar só o doctor (mais rápido)
+  test-doctor-only:
+    name: 🏥 Test Doctor Script
+    runs-on: macos-latest
+    
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🏥 Run doctor (deve mostrar falhas em ambiente limpo)
+        run: |
+          chmod +x ./scripts/doctor.sh
+          # Espera-se que falhe em ambiente limpo (exit code != 0)
+          ./scripts/doctor.sh || echo "Expected failures in clean environment"
