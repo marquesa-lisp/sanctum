@@ -17,10 +17,13 @@ Não precisa decorar tudo — use como referência no dia a dia! 📚
 6. [💾 Arquivos e Buffers](#-arquivos-e-buffers)
 7. [🪟 Janelas e Splits](#-janelas-e-splits)
 8. [🔌 Plugins Essenciais](#-plugins-essenciais)
+   - [LSP + Navegação de Código](#-lsp-language-server-protocol)
+   - [Comparação com IntelliJ/Cursive](#-comparação-com-intellijcursive)
 9. [🦎 Conjure (REPL Clojure)](#-conjure-repl-clojure)
 10. [🖥️ iTerm2](#️-iterm2)
 11. [⌨️ Terminal & Shell](#️-terminal--shell)
 12. [🎯 Workflow Diário](#-workflow-diário)
+13. [🎓 Dicas para Iniciantes](#-dicas-para-iniciantes)
 
 ---
 
@@ -460,18 +463,68 @@ Buffers são arquivos abertos na memória.
 
 ### 🧠 LSP (Language Server Protocol)
 
+O LSP dá superpoderes ao Neovim! É o que faz funcionar como uma IDE.
+
 | Atalho | O que faz |
 |--------|-----------|
-| `gd` | **G**o to **d**efinition |
+| `gd` | **G**o to **d**efinition (vai pra função) |
+| `gD` | **G**o to **D**eclaration |
 | `K` | Hover (documentação) |
 | `Space + lf` | **F**ormat código |
-| `Space + ln` | Re**n**ame símbolo |
+| `Space + ln` | Re**n**ame símbolo (em todo projeto!) |
 | `Space + la` | Code **a**ctions |
 | `Space + le` | Mostra **e**rro |
-| `Space + lr` | Lista **r**eferences |
+| `Space + lr` | Lista **r**eferences (quem chama!) |
 | `Space + li` | Lista **i**mplementations |
 | `Space + lj` | Próximo diagnóstico |
 | `Space + lk` | Diagnóstico anterior |
+
+### 🔄 Navegação de Código (Jump List)
+
+O Vim mantém um histórico de onde você navegou — como Back/Forward do browser!
+
+| Atalho | O que faz |
+|--------|-----------|
+| `Ctrl + o` | Volta para posição anterior (**o**lder) |
+| `Ctrl + i` | Avança no histórico (newer) |
+| `:jumps` | Lista todo histórico de navegação |
+
+### 🎯 Comparação com IntelliJ/Cursive
+
+Se você vem do Cursive, aqui está o mapeamento:
+
+| IntelliJ/Cursive | Neovim | O que faz |
+|------------------|--------|-----------|
+| `Cmd + B` | `gd` | Go to Definition |
+| `Cmd + Click` | `gd` | Ir para definição |
+| `Cmd + Shift + B` | `Space + lr` | Find Usages (quem usa) |
+| `Cmd + U` | `Space + li` | Find Implementations |
+| `Ctrl + ←` (voltar) | `Ctrl + o` | Voltar navegação |
+| `Ctrl + →` (avançar) | `Ctrl + i` | Avançar navegação |
+| `Shift + F6` (rename) | `Space + ln` | Rename símbolo |
+| `Cmd + P` | `K` | Parameter info / Doc |
+| `Opt + Enter` | `Space + la` | Code Actions |
+| `Cmd + Opt + L` | `Space + lf` | Format code |
+
+### 🗺️ Workflow de Navegação
+
+```
+                    gd (go to definition)
+    [uso da função] ───────────────────→ [definição]
+                    ←───────────────────
+                      Ctrl + o (voltar)
+
+                    Space + lr (references)
+    [definição] ────────────────────────→ [lista de usos]
+                                          │
+                                          ↓ Enter
+                                        [vai pro uso]
+                                          │
+                                          ↓ Ctrl + o
+                                        [volta]
+```
+
+> 💡 **Dica:** Use `gd` → analisa → `Ctrl+o` volta. Repita até entender o código!
 
 ### 💬 Comentários
 
@@ -485,29 +538,53 @@ Buffers são arquivos abertos na memória.
 
 ## 🦎 Conjure (REPL Clojure)
 
-> O leader local do Conjure é `,` (vírgula)
+O Conjure é o plugin que conecta o Neovim ao REPL Clojure. É a mágica do desenvolvimento interativo!
 
-### Avaliar código:
+> 🔑 **Leader local do Conjure = `,` (vírgula)**
+
+### 🔌 Conexão (geralmente automática!)
+
+```
+1. Terminal: lein repl (ou clj)
+   → Aguarda: "nREPL server started on port XXXXX"
+
+2. Neovim: abre arquivo .clj
+   → Conjure lê .nrepl-port e conecta automaticamente! ✨
+   
+3. Você verá: "Connected to nREPL"
+```
+
+| Comando | Quando usar |
+|---------|-------------|
+| `:ConjureConnect` | Se não conectou automaticamente |
+| `:ConjureConnect host:porta` | REPL em outra máquina |
+
+### ⚡ Avaliar código:
+
+| Atalho | O que faz | Mnemônico |
+|--------|-----------|-----------|
+| `,er` | Avalia **r**oot form (defn inteiro) | **e**val **r**oot |
+| `,ee` | Avalia expressão sob cursor | **e**val **e**xpression |
+| `,eb` | Avalia **b**uffer inteiro | **e**val **b**uffer |
+| `,ef` | Avalia **f**ile | **e**val **f**ile |
+| `,ew` | Avalia **w**ord (símbolo) | **e**val **w**ord |
+| `,e!` | Avalia e **substitui** pelo resultado | |
+
+> 💡 **Mais usado:** `,er` para avaliar a função que você está editando!
+
+### 📋 Log do REPL:
+
+O log aparece no canto superior direito. Use estes comandos para gerenciar:
 
 | Atalho | O que faz |
 |--------|-----------|
-| `,ee` | **E**val expressão sob cursor |
-| `,er` | **E**val **r**oot form (defn, def...) |
-| `,eb` | **E**val **b**uffer inteiro |
-| `,ef` | **E**val **f**ile |
-| `,ew` | **E**val **w**ord |
-| `,e!` | Substitui form pelo resultado |
+| `,ls` | **L**og **s**how (mostra/esconde) |
+| `,lv` | **L**og **v**ertical (split vertical) |
+| `,lh` | **L**og **h**orizontal (split horizontal) |
+| `,lr` | **L**og **r**eset (limpa) |
+| `,lq` | **L**og **q**uit (fecha) |
 
-### Log do REPL:
-
-| Atalho | O que faz |
-|--------|-----------|
-| `,ls` | **L**og **s**how |
-| `,lv` | **L**og **v**ertical |
-| `,lr` | **L**og **r**eset |
-| `,lq` | **L**og **q**uit |
-
-### Testes:
+### 🧪 Testes:
 
 | Atalho | O que faz |
 |--------|-----------|
@@ -515,19 +592,39 @@ Buffers são arquivos abertos na memória.
 | `,tn` | Roda testes do **n**amespace |
 | `,ta` | Roda **a**ll testes |
 
-### Documentação:
+### 📖 Documentação:
 
 | Atalho | O que faz |
 |--------|-----------|
-| `K` | Doc da função sob cursor |
-| `,ds` | Doc **s**ource |
+| `K` | Mostra doc da função (hover) |
+| `,ds` | **D**oc **s**ource (código fonte) |
+| `,dd` | **D**oc **d**efinition |
 
-### Conexão:
+### 🔄 Workflow típico:
 
-| Comando | O que faz |
-|---------|-----------|
-| `:ConjureConnect` | Conecta ao REPL |
-| `:ConjureConnect host:porta` | Conecta em endereço específico |
+```clojure
+;; 1. Escreve/modifica uma função
+(defn soma [a b]
+  (+ a b))
+
+;; 2. Cursor em qualquer lugar do defn
+;; 3. ,er → avalia a função
+
+;; 4. Testa no REPL (cursor na linha abaixo)
+(soma 1 2)
+;; 5. ,ee → avalia expressão, vê resultado: 3
+
+;; 6. Modifica, repete. Loop rápido! 🔁
+```
+
+### 🆚 Comparação com Cursive:
+
+| Cursive | Conjure | O que faz |
+|---------|---------|-----------|
+| `Cmd + Shift + L` | `,er` | Load/Eval form |
+| `Cmd + Shift + P` | `,ee` | Eval at cursor |
+| `Cmd + Shift + K` | `K` | Quick doc |
+| REPL Window | `,ls` | Ver output |
 
 ---
 
