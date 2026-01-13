@@ -32,9 +32,11 @@ Ele existe para:
 
 ```
 sanctum/
-├── install.sh         # 🚀 Script de instalação automática
+├── install.sh         # 🚀 Script de instalação automática (macOS)
+├── install-ubuntu.sh  # 🐧 Script de instalação automática (Ubuntu)
 ├── scripts/
-│   └── doctor.sh      # 🏥 Verifica se tudo está OK
+│   ├── doctor.sh      # 🏥 Verifica se tudo está OK (macOS)
+│   └── doctor-ubuntu.sh # 🏥 Verifica se tudo está OK (Ubuntu)
 │
 ├── artemis/           # Configurações específicas para macOS (MacBook)
 │   ├── aerospace/     # Window manager (tiling)
@@ -49,15 +51,17 @@ sanctum/
 │
 ├── config/            # Configurações compartilhadas (ambas plataformas)
 │   ├── alacritty/     # Terminal emulator
-│   ├── ghostty/       # Terminal emulator alternativo
+│   ├── ghostty/       # Terminal emulator (recomendado)
 │   ├── iterm2/        # iTerm2 (macOS)
 │   ├── nvim/          # Neovim (editor de texto)
 │   ├── clojure-lsp/   # Language Server para Clojure
-│   ├── zshrc          # Configuração do shell Zsh
+│   ├── zshrc          # Configuração do shell Zsh (macOS)
+│   ├── zshrc-linux    # Configuração do shell Zsh (Ubuntu)
 │   └── p10k.zsh       # Configuração do tema Powerlevel10k
 │
 ├── docs/              # Documentação
-│   └── iterm2-guide.md # Guia completo do iTerm2
+│   ├── iterm2-guide.md  # Guia completo do iTerm2
+│   └── vm-setup-guide.md # Guia de criação de VMs
 │
 ├── clojure/           # Configurações globais do Clojure
 └── gnupg/             # Configurações do GPG (criptografia)
@@ -103,6 +107,8 @@ A configuração do Neovim usa **Fennel** (um Lisp que compila para Lua), mas ta
 
 ## Instalação Automática (Recomendado)
 
+### macOS
+
 Em um Mac zerado, abra o **Terminal.app** e execute:
 
 ```bash
@@ -117,14 +123,45 @@ Isso irá instalar **tudo automaticamente**:
 - Oh My Zsh + Powerlevel10k
 - Criar todos os symlinks
 
+### Ubuntu
+
+Em um Ubuntu zerado, abra o **Terminal** e execute:
+
+```bash
+# Instalar git primeiro
+sudo apt update && sudo apt install -y git curl
+
+# Clonar e instalar
+git clone https://github.com/marquesa-lisp/sanctum.git ~/dev/github/sanctum
+cd ~/dev/github/sanctum
+./install-ubuntu.sh
+```
+
+Isso irá instalar **tudo automaticamente**:
+- Zsh + Oh My Zsh + Powerlevel10k
+- Neovim, ripgrep, lazygit, fzf
+- Java (OpenJDK 11, 17 e 21)
+- Clojure CLI + clojure-lsp
+- Ghostty (terminal)
+- Fontes (Nerd Fonts)
+- Criar todos os symlinks
+
+> 📖 Para criar uma VM Ubuntu para testar, veja o [Guia de Criação de VMs](docs/vm-setup-guide.md)
+
 ---
 
 ## Verificar Instalação
 
 Após a instalação, você pode verificar se tudo está OK:
 
+**macOS:**
 ```bash
 ~/dev/github/sanctum/scripts/doctor.sh
+```
+
+**Ubuntu:**
+```bash
+~/dev/github/sanctum/scripts/doctor-ubuntu.sh
 ```
 
 ---
@@ -190,6 +227,44 @@ Se preferir instalar passo a passo:
    ```bash
    source ~/.zshrc
    ```
+
+### Ubuntu
+
+1. Instale as dependências:
+   ```bash
+   sudo apt update
+   sudo apt install -y git curl zsh neovim
+   ```
+
+2. Instale o [Oh My Zsh](https://ohmyz.sh/):
+   ```bash
+   sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+   ```
+
+3. Instale plugins do Zsh:
+   ```bash
+   # Powerlevel10k
+   git clone --depth=1 https://github.com/romkatv/powerlevel10k.git \
+       ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+
+   # zsh-autosuggestions
+   git clone https://github.com/zsh-users/zsh-autosuggestions \
+       ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+
+   # zsh-syntax-highlighting
+   git clone https://github.com/zsh-users/zsh-syntax-highlighting.git \
+       ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+   ```
+
+4. Crie symlinks:
+   ```bash
+   ln -sf ~/dev/github/sanctum/config/zshrc-linux ~/.zshrc
+   ln -sf ~/dev/github/sanctum/config/p10k.zsh ~/.p10k.zsh
+   ln -sf ~/dev/github/sanctum/config/nvim ~/.config/nvim
+   ln -sf ~/dev/github/sanctum/config/ghostty ~/.config/ghostty
+   ```
+
+5. Reinicie o terminal
 
 ### Linux (Arch)
 

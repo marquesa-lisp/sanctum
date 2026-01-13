@@ -1,0 +1,443 @@
+#!/bin/bash
+
+# ╔═══════════════════════════════════════════════════════════════════╗
+# ║                                                                     ║
+# ║   ███████╗ █████╗ ███╗   ██╗ ██████╗████████╗██╗   ██╗███╗   ███╗  ║
+# ║   ██╔════╝██╔══██╗████╗  ██║██╔════╝╚══██╔══╝██║   ██║████╗ ████║  ║
+# ║   ███████╗███████║██╔██╗ ██║██║        ██║   ██║   ██║██╔████╔██║  ║
+# ║   ╚════██║██╔══██║██║╚██╗██║██║        ██║   ██║   ██║██║╚██╔╝██║  ║
+# ║   ███████║██║  ██║██║ ╚████║╚██████╗   ██║   ╚██████╔╝██║ ╚═╝ ██║  ║
+# ║   ╚══════╝╚═╝  ╚═╝╚═╝  ╚═══╝ ╚═════╝   ╚═╝    ╚═════╝ ╚═╝     ╚═╝  ║
+# ║                                                                     ║
+# ║                    Installation Script (Ubuntu)                     ║
+# ╚═══════════════════════════════════════════════════════════════════╝
+
+# Cores para output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+BLUE='\033[0;34m'
+PURPLE='\033[0;35m'
+CYAN='\033[0;36m'
+NC='\033[0m' # No Color
+
+# Variáveis
+SANCTUM_DIR="$HOME/dev/github/sanctum"
+REPO_URL="https://github.com/marquesa-lisp/sanctum.git"
+
+# Funções de output
+info() {
+    echo -e "${BLUE}[INFO]${NC} $1"
+}
+
+success() {
+    echo -e "${GREEN}[OK]${NC} $1"
+}
+
+warn() {
+    echo -e "${YELLOW}[WARN]${NC} $1"
+}
+
+error() {
+    echo -e "${RED}[ERROR]${NC} $1"
+    exit 1
+}
+
+step() {
+    echo -e "\n${PURPLE}══════════════════════════════════════════════════════════════${NC}"
+    echo -e "${PURPLE}  $1${NC}"
+    echo -e "${PURPLE}══════════════════════════════════════════════════════════════${NC}\n"
+}
+
+# ============================================
+# Verificações iniciais
+# ============================================
+
+# Verificar se está no Ubuntu/Debian
+if ! command -v apt &> /dev/null; then
+    error "Este script é para Ubuntu/Debian. Para macOS, use ./install.sh"
+fi
+
+# Detectar versão do Ubuntu
+if [ -f /etc/os-release ]; then
+    . /etc/os-release
+    info "Detectado: $NAME $VERSION_ID"
+else
+    info "Detectado: Sistema baseado em Debian"
+fi
+
+# ============================================
+# Passo 1: Atualizar sistema e instalar dependências base
+# ============================================
+step "1/9 • Atualizando sistema e instalando dependências"
+
+info "Atualizando lista de pacotes..."
+sudo apt update
+
+info "Instalando dependências base..."
+sudo apt install -y \
+    git \
+    curl \
+    wget \
+    unzip \
+    build-essential \
+    software-properties-common \
+    apt-transport-https \
+    ca-certificates \
+    gnupg \
+    fontconfig
+
+success "Dependências base instaladas"
+
+# ============================================
+# Passo 2: Clonar repositório
+# ============================================
+step "2/9 • Clonar Sanctum"
+
+if [[ -d "$SANCTUM_DIR" ]]; then
+    warn "Diretório $SANCTUM_DIR já existe"
+    info "Atualizando repositório..."
+    cd "$SANCTUM_DIR"
+    git pull origin main || warn "Não foi possível atualizar (pode estar em branch diferente)"
+else
+    info "Clonando repositório..."
+    mkdir -p "$(dirname "$SANCTUM_DIR")"
+    git clone "$REPO_URL" "$SANCTUM_DIR"
+    success "Repositório clonado em $SANCTUM_DIR"
+fi
+
+cd "$SANCTUM_DIR"
+
+# ============================================
+# Passo 3: Instalar Zsh
+# ============================================
+step "3/9 • Instalando Zsh"
+
+if command -v zsh &> /dev/null; then
+    success "Zsh já instalado: $(zsh --version)"
+else
+    info "Instalando Zsh..."
+    sudo apt install -y zsh
+    success "Zsh instalado"
+fi
+
+# ============================================
+# Passo 4: Oh My Zsh + Plugins
+# ============================================
+step "4/9 • Oh My Zsh + Plugins"
+
+if [[ -d "$HOME/.oh-my-zsh" ]]; then
+    success "Oh My Zsh já instalado"
+else
+    info "Instalando Oh My Zsh..."
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+    success "Oh My Zsh instalado"
+fi
+
+# Powerlevel10k
+if [[ -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k" ]]; then
+    success "Powerlevel10k já instalado"
+else
+    info "Instalando Powerlevel10k..."
+    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git \
+        "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
+    success "Powerlevel10k instalado"
+fi
+
+# zsh-autosuggestions
+if [[ -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions" ]]; then
+    success "zsh-autosuggestions já instalado"
+else
+    info "Instalando zsh-autosuggestions..."
+    git clone https://github.com/zsh-users/zsh-autosuggestions \
+        "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
+    success "zsh-autosuggestions instalado"
+fi
+
+# zsh-syntax-highlighting
+if [[ -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting" ]]; then
+    success "zsh-syntax-highlighting já instalado"
+else
+    info "Instalando zsh-syntax-highlighting..."
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git \
+        "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
+    success "zsh-syntax-highlighting instalado"
+fi
+
+# ============================================
+# Passo 5: Neovim + Ferramentas de Dev
+# ============================================
+step "5/9 • Neovim + Ferramentas de Dev"
+
+# Neovim (versão estável mais recente via PPA)
+if command -v nvim &> /dev/null; then
+    success "Neovim já instalado: $(nvim --version | head -1)"
+else
+    info "Instalando Neovim..."
+    sudo add-apt-repository -y ppa:neovim-ppa/unstable
+    sudo apt update
+    sudo apt install -y neovim
+    success "Neovim instalado"
+fi
+
+# ripgrep
+if command -v rg &> /dev/null; then
+    success "ripgrep já instalado"
+else
+    info "Instalando ripgrep..."
+    sudo apt install -y ripgrep
+    success "ripgrep instalado"
+fi
+
+# fzf
+if command -v fzf &> /dev/null; then
+    success "fzf já instalado"
+else
+    info "Instalando fzf..."
+    sudo apt install -y fzf
+    success "fzf instalado"
+fi
+
+# lazygit
+if command -v lazygit &> /dev/null; then
+    success "lazygit já instalado"
+else
+    info "Instalando lazygit..."
+    LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
+    curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
+    tar xf lazygit.tar.gz lazygit
+    sudo install lazygit /usr/local/bin
+    rm -f lazygit lazygit.tar.gz
+    success "lazygit instalado"
+fi
+
+# htop, jq, rlwrap
+info "Instalando utilitários extras..."
+sudo apt install -y htop jq rlwrap neofetch cowsay fortune-mod sl
+success "Utilitários instalados"
+
+# ============================================
+# Passo 6: Java
+# ============================================
+step "6/9 • Java (OpenJDK)"
+
+if command -v java &> /dev/null; then
+    success "Java já instalado: $(java -version 2>&1 | head -1)"
+else
+    info "Instalando OpenJDK..."
+fi
+
+# Instalar múltiplas versões do Java
+sudo apt install -y openjdk-11-jdk openjdk-17-jdk openjdk-21-jdk
+
+success "OpenJDK 11, 17 e 21 instalados"
+
+# ============================================
+# Passo 7: Clojure
+# ============================================
+step "7/9 • Clojure"
+
+if command -v clojure &> /dev/null; then
+    success "Clojure já instalado"
+else
+    info "Instalando Clojure CLI..."
+    curl -L -O https://github.com/clojure/brew-install/releases/latest/download/linux-install.sh
+    chmod +x linux-install.sh
+    sudo ./linux-install.sh
+    rm -f linux-install.sh
+    success "Clojure instalado"
+fi
+
+# clojure-lsp
+if command -v clojure-lsp &> /dev/null; then
+    success "clojure-lsp já instalado"
+else
+    info "Instalando clojure-lsp..."
+    curl -L -o /tmp/clojure-lsp https://github.com/clojure-lsp/clojure-lsp/releases/latest/download/clojure-lsp-native-static-linux-amd64
+    chmod +x /tmp/clojure-lsp
+    sudo mv /tmp/clojure-lsp /usr/local/bin/
+    success "clojure-lsp instalado"
+fi
+
+# ============================================
+# Passo 8: Fontes (Nerd Fonts)
+# ============================================
+step "8/9 • Fontes (Nerd Fonts)"
+
+FONT_DIR="$HOME/.local/share/fonts"
+mkdir -p "$FONT_DIR"
+
+# JetBrains Mono Nerd Font
+if ls "$FONT_DIR"/*JetBrains* &> /dev/null 2>&1; then
+    success "JetBrains Mono Nerd Font já instalada"
+else
+    info "Instalando JetBrains Mono Nerd Font..."
+    cd /tmp
+    curl -fLO https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/JetBrainsMono.zip
+    unzip -o JetBrainsMono.zip -d "$FONT_DIR"
+    rm -f JetBrainsMono.zip
+    success "JetBrains Mono Nerd Font instalada"
+fi
+
+# Meslo Nerd Font (usado pelo p10k)
+if ls "$FONT_DIR"/*MesloLGS* &> /dev/null 2>&1; then
+    success "MesloLGS Nerd Font já instalada"
+else
+    info "Instalando MesloLGS Nerd Font..."
+    cd /tmp
+    curl -fLO https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/Meslo.zip
+    unzip -o Meslo.zip -d "$FONT_DIR"
+    rm -f Meslo.zip
+    success "MesloLGS Nerd Font instalada"
+fi
+
+# Atualizar cache de fontes
+info "Atualizando cache de fontes..."
+fc-cache -fv > /dev/null 2>&1
+success "Cache de fontes atualizado"
+
+# ============================================
+# Passo 9: Ghostty (Terminal)
+# ============================================
+step "9/9 • Ghostty + Symlinks"
+
+# Ghostty - instalar via zig build ou binário pré-compilado
+if command -v ghostty &> /dev/null; then
+    success "Ghostty já instalado"
+else
+    info "Instalando Ghostty..."
+    
+    # Instalar dependências para compilar Ghostty
+    sudo apt install -y libgtk-4-dev libadwaita-1-dev git
+    
+    # Tentar baixar release binário primeiro (mais rápido)
+    GHOSTTY_VERSION="1.0.1"
+    GHOSTTY_URL="https://github.com/ghostty-org/ghostty/releases/download/v${GHOSTTY_VERSION}/ghostty-${GHOSTTY_VERSION}-linux-x86_64.tar.gz"
+    
+    if curl -fsSL "$GHOSTTY_URL" -o /tmp/ghostty.tar.gz 2>/dev/null; then
+        info "Extraindo Ghostty..."
+        cd /tmp
+        tar xzf ghostty.tar.gz
+        sudo mv ghostty /usr/local/bin/
+        rm -f ghostty.tar.gz
+        success "Ghostty instalado via release binário"
+    else
+        # Se não tem release, tentar via Zig (mais demorado)
+        info "Release não encontrado, tentando compilar..."
+        
+        # Instalar Zig
+        if ! command -v zig &> /dev/null; then
+            info "Instalando Zig..."
+            sudo snap install zig --classic --beta 2>/dev/null || {
+                # Fallback: baixar Zig manualmente
+                curl -fsSL https://ziglang.org/download/0.13.0/zig-linux-x86_64-0.13.0.tar.xz -o /tmp/zig.tar.xz
+                sudo tar xf /tmp/zig.tar.xz -C /opt/
+                sudo ln -sf /opt/zig-linux-x86_64-0.13.0/zig /usr/local/bin/zig
+                rm -f /tmp/zig.tar.xz
+            }
+        fi
+        
+        # Clonar e compilar Ghostty
+        if command -v zig &> /dev/null; then
+            cd /tmp
+            git clone https://github.com/ghostty-org/ghostty.git ghostty-src
+            cd ghostty-src
+            zig build -Doptimize=ReleaseFast
+            sudo cp zig-out/bin/ghostty /usr/local/bin/
+            cd /tmp && rm -rf ghostty-src
+            success "Ghostty compilado e instalado"
+        else
+            warn "Não foi possível instalar Zig para compilar Ghostty"
+            info "Instale manualmente: https://ghostty.org/docs/install"
+        fi
+    fi
+fi
+
+# ============================================
+# Symlinks
+# ============================================
+info "Criando symlinks..."
+
+# Backup de arquivos existentes
+backup_if_exists() {
+    if [[ -f "$1" && ! -L "$1" ]]; then
+        info "Backup: $1 → $1.backup"
+        mv "$1" "$1.backup"
+    fi
+}
+
+# Zsh (usando versão Linux)
+backup_if_exists "$HOME/.zshrc"
+ln -sf "$SANCTUM_DIR/config/zshrc-linux" "$HOME/.zshrc"
+success "~/.zshrc → sanctum/config/zshrc-linux"
+
+backup_if_exists "$HOME/.p10k.zsh"
+ln -sf "$SANCTUM_DIR/config/p10k.zsh" "$HOME/.p10k.zsh"
+success "~/.p10k.zsh → sanctum/config/p10k.zsh"
+
+# Neovim
+mkdir -p "$HOME/.config"
+if [[ -L "$HOME/.config/nvim" ]]; then
+    rm "$HOME/.config/nvim"
+elif [[ -d "$HOME/.config/nvim" ]]; then
+    info "Backup: ~/.config/nvim → ~/.config/nvim.backup"
+    mv "$HOME/.config/nvim" "$HOME/.config/nvim.backup"
+fi
+ln -sf "$SANCTUM_DIR/config/nvim" "$HOME/.config/nvim"
+success "~/.config/nvim → sanctum/config/nvim"
+
+# Ghostty
+mkdir -p "$HOME/.config/ghostty"
+ln -sf "$SANCTUM_DIR/config/ghostty/config" "$HOME/.config/ghostty/config"
+if [[ -d "$SANCTUM_DIR/config/ghostty/themes" ]]; then
+    ln -sf "$SANCTUM_DIR/config/ghostty/themes" "$HOME/.config/ghostty/themes"
+fi
+success "~/.config/ghostty → sanctum/config/ghostty"
+
+# Clojure LSP
+mkdir -p "$HOME/.config/clojure-lsp"
+ln -sf "$SANCTUM_DIR/config/clojure-lsp/config.edn" "$HOME/.config/clojure-lsp/config.edn"
+success "~/.config/clojure-lsp/config.edn → sanctum/config/clojure-lsp/config.edn"
+
+# Clojure deps.edn global
+mkdir -p "$HOME/.clojure"
+ln -sf "$SANCTUM_DIR/clojure/deps.edn" "$HOME/.clojure/deps.edn"
+success "~/.clojure/deps.edn → sanctum/clojure/deps.edn"
+
+# GPG Agent
+mkdir -p "$HOME/.gnupg"
+chmod 700 "$HOME/.gnupg"
+ln -sf "$SANCTUM_DIR/gnupg/gpg-agent.conf" "$HOME/.gnupg/gpg-agent.conf"
+success "~/.gnupg/gpg-agent.conf → sanctum/gnupg/gpg-agent.conf"
+
+# ============================================
+# Mudar shell padrão
+# ============================================
+if [[ "$SHELL" != *"zsh"* ]]; then
+    info "Mudando shell padrão para zsh..."
+    chsh -s "$(which zsh)"
+fi
+
+# ============================================
+# Rodar doctor
+# ============================================
+echo ""
+info "Executando sanctum-doctor para verificar instalação..."
+echo ""
+
+"$SANCTUM_DIR/scripts/doctor-ubuntu.sh"
+
+# Mensagem final
+echo ""
+echo -e "${GREEN}╔═══════════════════════════════════════════════════════════════════╗${NC}"
+echo -e "${GREEN}║                                                                     ║${NC}"
+echo -e "${GREEN}║   ✨ Sanctum instalado com sucesso no Ubuntu!                      ║${NC}"
+echo -e "${GREEN}║                                                                     ║${NC}"
+echo -e "${GREEN}║   Próximos passos:                                                  ║${NC}"
+echo -e "${GREEN}║   1. Feche e reabra o terminal (ou execute: source ~/.zshrc)       ║${NC}"
+echo -e "${GREEN}║   2. Configure a fonte no terminal (JetBrainsMono Nerd Font)       ║${NC}"
+echo -e "${GREEN}║   3. Execute 'p10k configure' se quiser reconfigurar o prompt      ║${NC}"
+echo -e "${GREEN}║   4. Abra o Neovim (nvim) - plugins serão instalados automaticamente║${NC}"
+echo -e "${GREEN}║                                                                     ║${NC}"
+echo -e "${GREEN}╚═══════════════════════════════════════════════════════════════════╝${NC}"
+echo ""
