@@ -5,9 +5,15 @@ Este guia ensina como criar uma máquina virtual (VM) com Ubuntu para usar o San
 ## Índice
 
 - [VM Ubuntu no macOS](#vm-ubuntu-no-macos)
+  - [UTM (Recomendado)](#opção-recomendada-utm-gratuito)
 - [VM Ubuntu no Windows](#vm-ubuntu-no-windows)
+  - [VirtualBox (Recomendado)](#opção-1-virtualbox-recomendado-)
+  - [VMware Player](#opção-2-vmware-workstation-player-alternativa)
+  - [WSL2](#opção-3-wsl2--interface-gráfica-alternativa-leve)
 - [Após Instalar o Ubuntu](#após-instalar-o-ubuntu)
 - [Checklist de Validação](#checklist-de-validação)
+- [Solução de Problemas](#solução-de-problemas)
+- [Resultado Final](#resultado-final)
 
 ---
 
@@ -84,67 +90,259 @@ sudo apt install spice-vdagent spice-webdavd
 
 ## VM Ubuntu no Windows
 
-### Opção 1: VirtualBox (Gratuito e Simples)
+> 💡 **Recomendação para iniciantes:** Use o **VirtualBox**. É 100% gratuito, simples de usar e tem muito material de suporte online.
 
-O **VirtualBox** é gratuito e funciona bem para a maioria dos casos.
+### Opção 1: VirtualBox (Recomendado) ⭐
 
-#### 1. Instalar VirtualBox
+O **VirtualBox** é a melhor opção para iniciantes: gratuito, simples e bem documentado.
 
-1. Baixe em: https://www.virtualbox.org/wiki/Downloads
+---
+
+#### Pré-requisitos
+
+Antes de começar, verifique se seu computador atende aos requisitos:
+
+| Requisito | Mínimo | Recomendado |
+|-----------|--------|-------------|
+| **RAM total** | 8 GB | 16 GB |
+| **Espaço em disco** | 40 GB livres | 60 GB livres |
+| **Processador** | Intel/AMD 64-bit | Intel/AMD com VT-x/AMD-V |
+| **Windows** | Windows 10 | Windows 10/11 |
+
+**Verificar se virtualização está habilitada:**
+1. Pressione `Ctrl + Shift + Esc` para abrir o Gerenciador de Tarefas
+2. Vá na aba **"Desempenho"** → **"CPU"**
+3. Procure por **"Virtualização: Habilitado"**
+
+> ⚠️ Se estiver "Desabilitado", você precisa habilitar no BIOS/UEFI do computador (procure por "Intel VT-x" ou "AMD-V").
+
+---
+
+#### Passo 1: Baixar VirtualBox
+
+1. Acesse: **https://www.virtualbox.org/wiki/Downloads**
 2. Clique em **"Windows hosts"**
-3. Execute o instalador e siga as instruções (Next, Next, Install)
-4. Reinicie o computador se solicitado
+3. Aguarde o download (aprox. 100 MB)
 
-#### 2. Baixar Ubuntu
+👉 **Link direto:** https://download.virtualbox.org/virtualbox/7.1.4/VirtualBox-7.1.4-165100-Win.exe
 
-- Baixe o Ubuntu Desktop **64-bit**: https://ubuntu.com/download/desktop
-- Escolha **Ubuntu 24.04.x LTS**
+---
 
-#### 3. Criar a VM no VirtualBox
+#### Passo 2: Instalar VirtualBox
 
-1. Abra o **VirtualBox**
-2. Clique em **"Novo"** (ou **"New"**)
-3. Configure:
-   - **Nome:** Ubuntu
-   - **Pasta:** deixe o padrão
-   - **ISO Image:** Selecione o Ubuntu baixado
-   - Marque **"Skip Unattended Installation"** ✅
-4. Clique em **"Próximo"**
-5. Configure os recursos:
+1. Execute o arquivo baixado (`VirtualBox-x.x.x-xxxxx-Win.exe`)
+2. Clique em **"Next"** nas telas iniciais
+3. Na tela de recursos, **deixe tudo marcado** e clique **"Next"**
+4. Vai aparecer um aviso sobre rede - clique **"Yes"**
+5. Clique em **"Install"**
+6. Se pedir permissão do Windows, clique **"Sim"**
+7. Ao finalizar, clique em **"Finish"**
+8. **Reinicie o computador** (recomendado)
 
-| Recurso | Recomendado | Mínimo |
-|---------|-------------|--------|
-| **RAM** | 4096 MB | 2048 MB |
-| **CPU** | 2-4 | 1 |
-| **Disco** | 30 GB | 20 GB |
+---
 
-6. Clique em **"Finalizar"**
-7. Selecione a VM e clique em **"Iniciar"**
+#### Passo 3: Baixar Ubuntu
 
-#### 4. Instalar Ubuntu
+1. Acesse: **https://ubuntu.com/download/desktop**
+2. Clique em **"Download Ubuntu Desktop"**
+3. Escolha **Ubuntu 24.04.x LTS** (versão estável)
+4. Aguarde o download (aprox. 5 GB)
 
-Siga os mesmos passos da [seção macOS](#4-instalar-ubuntu).
+👉 **Link direto:** https://releases.ubuntu.com/24.04/ubuntu-24.04.1-desktop-amd64.iso
 
-#### 5. Instalar Guest Additions (Importante!)
+> 💡 **Dica:** Enquanto baixa, você pode ir para o próximo passo e criar a VM.
 
-Após instalar o Ubuntu, instale as Guest Additions para melhor performance:
+---
+
+#### Passo 4: Criar a Máquina Virtual
+
+1. Abra o **Oracle VM VirtualBox**
+2. Clique no botão **"Novo"** (ou `Ctrl + N`)
+
+**Tela 1 - Nome e Sistema Operacional:**
+- **Nome:** `Ubuntu` (ou o nome que preferir)
+- **Pasta:** deixe o padrão
+- **Imagem ISO:** Clique na pastinha e selecione o Ubuntu baixado
+- ✅ Marque **"Pular instalação desassistida"** (Skip Unattended Installation)
+- Clique em **"Próximo"**
+
+**Tela 2 - Hardware:**
+- **Memória RAM:** Arraste para **4096 MB** (4 GB)
+  - Se tiver 16 GB ou mais, pode colocar 8192 MB (8 GB)
+- **Processadores:** Arraste para **2 ou 4 CPUs**
+- Clique em **"Próximo"**
+
+**Tela 3 - Disco Virtual:**
+- Selecione **"Criar um disco rígido virtual agora"**
+- **Tamanho:** `30 GB` (ou mais se tiver espaço)
+- ✅ Marque **"Pré-alocar tamanho total"** para melhor performance
+- Clique em **"Próximo"**
+
+**Tela 4 - Resumo:**
+- Revise as configurações
+- Clique em **"Finalizar"**
+
+---
+
+#### Passo 5: Configurações Extras (Recomendado)
+
+Antes de iniciar a VM, vamos otimizar:
+
+1. Selecione a VM **"Ubuntu"** na lista
+2. Clique em **"Configurações"** (ou `Ctrl + S`)
+
+**Aba "Sistema" → "Processador":**
+- ✅ Marque **"Habilitar PAE/NX"**
+- ✅ Marque **"Habilitar VT-x/AMD-V aninhado"** (se disponível)
+
+**Aba "Tela":**
+- **Memória de vídeo:** Arraste para **128 MB**
+- **Controlador gráfico:** Selecione **"VMSVGA"**
+- ✅ Marque **"Habilitar aceleração 3D"**
+
+**Aba "Armazenamento":**
+- Confirme que o ISO do Ubuntu está na unidade de CD/DVD
+
+**Aba "Rede":**
+- **Conectado a:** Selecione **"NAT"** (padrão, funciona bem)
+
+Clique em **"OK"** para salvar.
+
+---
+
+#### Passo 6: Instalar o Ubuntu
+
+1. Selecione a VM e clique em **"Iniciar"** (botão verde ▶)
+2. A VM vai iniciar e carregar o Ubuntu do ISO
+
+**No instalador do Ubuntu:**
+
+1. Selecione o idioma: **"Português (Brasil)"** ou **"English"**
+2. Clique em **"Instalar Ubuntu"**
+3. Layout do teclado: **"Portuguese (Brazil)"** - ABNT2
+4. Tipo de instalação:
+   - Selecione **"Instalação normal"**
+   - ✅ Marque **"Baixar atualizações durante a instalação"**
+5. Tipo de instalação de disco:
+   - Selecione **"Apagar disco e instalar Ubuntu"**
+   - ⚠️ Isso é seguro! É o disco virtual, não seu disco real.
+   - Clique em **"Instalar agora"** → **"Continuar"**
+6. Fuso horário: Clique em **São Paulo** no mapa (ou sua cidade)
+7. Crie seu usuário:
+   - **Seu nome:** Daniel (ou seu nome)
+   - **Nome do computador:** ubuntu-vm
+   - **Nome de usuário:** daniel (ou o que preferir)
+   - **Senha:** escolha uma senha (vai precisar dela!)
+8. Aguarde a instalação (10-20 minutos)
+9. Quando terminar, clique em **"Reiniciar agora"**
+10. Quando pedir para remover o disco, apenas pressione **Enter**
+
+---
+
+#### Passo 7: Instalar Guest Additions (Muito Importante!)
+
+Após o Ubuntu reiniciar e você fazer login:
+
+1. Abra o **Terminal** (pressione `Ctrl + Alt + T`)
+2. Execute os comandos:
 
 ```bash
-# No terminal do Ubuntu
-sudo apt update
+# Atualizar sistema
+sudo apt update && sudo apt upgrade -y
+
+# Instalar Guest Additions
 sudo apt install -y virtualbox-guest-utils virtualbox-guest-x11
+
+# Reiniciar
 sudo reboot
 ```
 
 **Isso habilita:**
-- Resolução de tela dinâmica
-- Copiar e colar entre Windows e VM
-- Pastas compartilhadas
-- Melhor performance de vídeo
+- ✅ Resolução de tela automática (redimensiona com a janela)
+- ✅ Copiar e colar entre Windows e Ubuntu
+- ✅ Arrastar e soltar arquivos
+- ✅ Pastas compartilhadas
+- ✅ Melhor performance de vídeo
 
 ---
 
-### Opção 2: VMware Workstation Player (Gratuito)
+#### Passo 8: Configurar Área de Transferência (Copiar/Colar)
+
+Para copiar e colar entre Windows e Ubuntu:
+
+1. Com a VM rodando, vá no menu **"Dispositivos"**
+2. Clique em **"Área de Transferência Compartilhada"**
+3. Selecione **"Bidirecional"**
+
+4. Ainda em **"Dispositivos"**
+5. Clique em **"Arrastar e Soltar"**
+6. Selecione **"Bidirecional"**
+
+Agora você pode copiar texto no Windows (`Ctrl+C`) e colar no Ubuntu (`Ctrl+V`).
+
+---
+
+#### Passo 9: Criar Pasta Compartilhada (Opcional)
+
+Para compartilhar arquivos entre Windows e Ubuntu:
+
+1. Com a VM desligada ou rodando, vá em **"Configurações"**
+2. Aba **"Pastas Compartilhadas"**
+3. Clique no ícone de **"+"** (Adicionar pasta)
+4. Configure:
+   - **Caminho da pasta:** Escolha uma pasta no Windows (ex: `C:\Compartilhado`)
+   - **Nome da pasta:** `compartilhado`
+   - ✅ Marque **"Montar automaticamente"**
+   - ✅ Marque **"Tornar permanente"**
+5. Clique em **"OK"**
+
+No Ubuntu, a pasta aparece em: `/media/sf_compartilhado`
+
+Para acessar sem sudo:
+```bash
+sudo adduser $USER vboxsf
+sudo reboot
+```
+
+---
+
+#### Passo 10: Criar Snapshot (Salvar Estado)
+
+Antes de instalar o Sanctum, crie um snapshot para poder voltar se algo der errado:
+
+1. Menu **"Máquina"** → **"Ferramentas"** → **"Snapshots"**
+2. Clique em **"Criar"** (ou `Ctrl + Shift + S`)
+3. Dê um nome: "Ubuntu limpo - antes do Sanctum"
+4. Clique em **"OK"**
+
+> 💡 **Dica:** Se algo der errado, você pode restaurar esse snapshot e começar de novo.
+
+---
+
+#### Problemas Comuns no VirtualBox
+
+**Tela preta após iniciar:**
+- Vá em Configurações → Tela → mude o Controlador Gráfico para "VBoxVGA"
+
+**VM muito lenta:**
+- Verifique se a virtualização está habilitada no BIOS
+- Aumente a RAM da VM
+- Desative o Hyper-V do Windows (pode conflitar)
+
+**Resolução não ajusta:**
+- Instale o Guest Additions (Passo 7)
+- Menu "Exibir" → "Redimensionar automaticamente tela do convidado"
+
+**Copiar/colar não funciona:**
+- Instale o Guest Additions
+- Configure área de transferência bidirecional (Passo 8)
+
+**Erro "VT-x is disabled":**
+- Habilite a virtualização no BIOS/UEFI do computador
+
+---
+
+### Opção 2: VMware Workstation Player (Alternativa)
 
 O **VMware** tem melhor performance que o VirtualBox em alguns casos.
 
@@ -354,10 +552,25 @@ p10k configure
 
 ---
 
+## Resultado Final
+
+Se tudo deu certo, seu ambiente Ubuntu deve ficar assim:
+
+![screenshot ubuntu](screenshot-ubuntu.png)
+
+**O que você vê na imagem:**
+- **Esquerda superior:** NvimTree (explorador de arquivos)
+- **Centro:** Neovim editando código Clojure
+- **Direita:** Log do Conjure mostrando resultados do REPL
+- **Inferior esquerdo:** Neofetch (informações do sistema)
+- **Inferior direito:** REPL do Clojure rodando
+
+---
+
 ## Recursos Úteis
 
 - [UTM Documentation](https://docs.getutm.app/)
 - [VirtualBox Manual](https://www.virtualbox.org/manual/)
 - [VMware Documentation](https://docs.vmware.com/)
 - [Ubuntu Desktop Guide](https://help.ubuntu.com/stable/ubuntu-help/)
-- [Ghostty Documentation](https://ghostty.org/docs)
+- [Alacritty Documentation](https://alacritty.org/config-alacritty.html)

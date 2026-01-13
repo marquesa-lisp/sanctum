@@ -127,6 +127,8 @@ Isso irá instalar **tudo automaticamente**:
 
 ### Ubuntu
 
+![screenshot ubuntu](docs/screenshot-ubuntu.png)
+
 Em um Ubuntu zerado, abra o **Terminal** e execute:
 
 ```bash
