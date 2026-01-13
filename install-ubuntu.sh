@@ -211,6 +211,16 @@ else
     success "lazygit instalado"
 fi
 
+# Node.js (necessário para Copilot e outras ferramentas)
+if command -v node &> /dev/null; then
+    success "Node.js já instalado: $(node --version)"
+else
+    info "Instalando Node.js (LTS)..."
+    curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+    sudo apt install -y nodejs
+    success "Node.js instalado: $(node --version)"
+fi
+
 # htop, jq, rlwrap
 info "Instalando utilitários extras..."
 sudo apt install -y htop jq rlwrap neofetch cowsay fortune-mod sl

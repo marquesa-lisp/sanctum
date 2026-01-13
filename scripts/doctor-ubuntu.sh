@@ -229,6 +229,18 @@ else
     check_fail "fzf não instalado"
 fi
 
+if command -v node &> /dev/null; then
+    check_pass "Node.js $(node --version)"
+else
+    check_fail "Node.js não instalado (necessário para Copilot)"
+fi
+
+if command -v npm &> /dev/null; then
+    check_pass "npm $(npm --version)"
+else
+    check_warn "npm não instalado"
+fi
+
 # ============================================
 # Terminal
 # ============================================
@@ -313,6 +325,17 @@ if ls "$FONT_DIR"/*Meslo* &> /dev/null 2>&1 || ls /usr/share/fonts/*Meslo* &> /d
     check_pass "Meslo Nerd Font"
 else
     check_warn "Meslo Nerd Font não encontrada"
+fi
+
+# ============================================
+# VM Integration (opcional)
+# ============================================
+section "VM Integration (opcional)"
+
+if command -v spice-vdagent &> /dev/null; then
+    check_pass "SPICE Guest Agent (mouse/clipboard)"
+else
+    check_warn "SPICE Guest Agent não instalado (útil para VMs)"
 fi
 
 # ============================================
