@@ -172,12 +172,12 @@ else
     check_fail "~/.config/nvim não existe"
 fi
 
-if [[ -L "$HOME/.config/ghostty/config" ]] && [[ "$(readlink "$HOME/.config/ghostty/config")" == *"sanctum"* ]]; then
-    check_pass "~/.config/ghostty/config → sanctum"
-elif [[ -f "$HOME/.config/ghostty/config" ]]; then
-    check_warn "ghostty config existe mas não é symlink para sanctum"
+if [[ -L "$HOME/.config/alacritty/alacritty.toml" ]] && [[ "$(readlink "$HOME/.config/alacritty/alacritty.toml")" == *"sanctum"* ]]; then
+    check_pass "~/.config/alacritty/alacritty.toml → sanctum"
+elif [[ -f "$HOME/.config/alacritty/alacritty.toml" ]]; then
+    check_warn "alacritty config existe mas não é symlink para sanctum"
 else
-    check_fail "ghostty config não existe"
+    check_fail "alacritty config não existe"
 fi
 
 if [[ -L "$HOME/.config/clojure-lsp/config.edn" ]]; then
@@ -226,10 +226,10 @@ fi
 # ============================================
 section "Terminal"
 
-if command -v ghostty &> /dev/null; then
-    check_pass "Ghostty instalado"
+if command -v alacritty &> /dev/null; then
+    check_pass "Alacritty instalado"
 else
-    check_fail "Ghostty não instalado (execute ./install-ubuntu.sh)"
+    check_fail "Alacritty não instalado (execute ./install-ubuntu.sh)"
 fi
 
 # ============================================

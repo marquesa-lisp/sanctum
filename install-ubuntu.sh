@@ -297,60 +297,17 @@ fc-cache -fv > /dev/null 2>&1
 success "Cache de fontes atualizado"
 
 # ============================================
-# Passo 9: Ghostty (Terminal)
+# Passo 9: Alacritty (Terminal)
 # ============================================
-step "9/9 • Ghostty + Symlinks"
+step "9/9 • Alacritty + Symlinks"
 
-# Ghostty - instalar via zig build ou binário pré-compilado
-if command -v ghostty &> /dev/null; then
-    success "Ghostty já instalado"
+# Alacritty - terminal rápido e fácil de instalar no Ubuntu
+if command -v alacritty &> /dev/null; then
+    success "Alacritty já instalado"
 else
-    info "Instalando Ghostty..."
-    
-    # Instalar dependências para compilar Ghostty
-    sudo apt install -y libgtk-4-dev libadwaita-1-dev git
-    
-    # Tentar baixar release binário primeiro (mais rápido)
-    GHOSTTY_VERSION="1.0.1"
-    GHOSTTY_URL="https://github.com/ghostty-org/ghostty/releases/download/v${GHOSTTY_VERSION}/ghostty-${GHOSTTY_VERSION}-linux-x86_64.tar.gz"
-    
-    if curl -fsSL "$GHOSTTY_URL" -o /tmp/ghostty.tar.gz 2>/dev/null; then
-        info "Extraindo Ghostty..."
-        cd /tmp
-        tar xzf ghostty.tar.gz
-        sudo mv ghostty /usr/local/bin/
-        rm -f ghostty.tar.gz
-        success "Ghostty instalado via release binário"
-    else
-        # Se não tem release, tentar via Zig (mais demorado)
-        info "Release não encontrado, tentando compilar..."
-        
-        # Instalar Zig
-        if ! command -v zig &> /dev/null; then
-            info "Instalando Zig..."
-            sudo snap install zig --classic --beta 2>/dev/null || {
-                # Fallback: baixar Zig manualmente
-                curl -fsSL https://ziglang.org/download/0.13.0/zig-linux-x86_64-0.13.0.tar.xz -o /tmp/zig.tar.xz
-                sudo tar xf /tmp/zig.tar.xz -C /opt/
-                sudo ln -sf /opt/zig-linux-x86_64-0.13.0/zig /usr/local/bin/zig
-                rm -f /tmp/zig.tar.xz
-            }
-        fi
-        
-        # Clonar e compilar Ghostty
-        if command -v zig &> /dev/null; then
-            cd /tmp
-            git clone https://github.com/ghostty-org/ghostty.git ghostty-src
-            cd ghostty-src
-            zig build -Doptimize=ReleaseFast
-            sudo cp zig-out/bin/ghostty /usr/local/bin/
-            cd /tmp && rm -rf ghostty-src
-            success "Ghostty compilado e instalado"
-        else
-            warn "Não foi possível instalar Zig para compilar Ghostty"
-            info "Instale manualmente: https://ghostty.org/docs/install"
-        fi
-    fi
+    info "Instalando Alacritty..."
+    sudo apt install -y alacritty
+    success "Alacritty instalado"
 fi
 
 # ============================================
@@ -386,13 +343,13 @@ fi
 ln -sf "$SANCTUM_DIR/config/nvim" "$HOME/.config/nvim"
 success "~/.config/nvim → sanctum/config/nvim"
 
-# Ghostty
-mkdir -p "$HOME/.config/ghostty"
-ln -sf "$SANCTUM_DIR/config/ghostty/config" "$HOME/.config/ghostty/config"
-if [[ -d "$SANCTUM_DIR/config/ghostty/themes" ]]; then
-    ln -sf "$SANCTUM_DIR/config/ghostty/themes" "$HOME/.config/ghostty/themes"
+# Alacritty (usando config Linux sem tmux)
+mkdir -p "$HOME/.config/alacritty"
+ln -sf "$SANCTUM_DIR/config/alacritty/alacritty-linux.toml" "$HOME/.config/alacritty/alacritty.toml"
+if [[ -d "$SANCTUM_DIR/config/alacritty/custom" ]]; then
+    ln -sf "$SANCTUM_DIR/config/alacritty/custom" "$HOME/.config/alacritty/custom"
 fi
-success "~/.config/ghostty → sanctum/config/ghostty"
+success "~/.config/alacritty → sanctum/config/alacritty (Linux)"
 
 # Clojure LSP
 mkdir -p "$HOME/.config/clojure-lsp"

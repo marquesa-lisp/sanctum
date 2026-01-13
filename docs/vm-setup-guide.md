@@ -260,15 +260,12 @@ source ~/.zshrc
 
 Após instalar o Sanctum, verifique se tudo funciona:
 
-### Terminal (Ghostty)
+### Terminal (Alacritty)
 
-- [ ] Ghostty abre corretamente
+- [ ] Alacritty abre corretamente (`alacritty`)
 - [ ] Fonte JetBrainsMono Nerd Font está funcionando (ícones aparecem)
 - [ ] Tema Tairiki aplicado (cores corretas)
-- [ ] Criar nova tab: `Ctrl+F` depois `C`
-- [ ] Criar split horizontal: `Ctrl+F` depois `J`
-- [ ] Criar split vertical: `Ctrl+F` depois `L`
-- [ ] Navegar entre splits: `Ctrl+W` depois `H/J/K/L`
+- [ ] O terminal inicia com tmux automaticamente (se configurado)
 
 ### Shell (Zsh + Powerlevel10k)
 
@@ -302,15 +299,17 @@ Após instalar o Sanctum, verifique se tudo funciona:
 
 ## Solução de Problemas
 
-### Ghostty não abre
+### Alacritty não abre
 
 ```bash
 # Verificar se está instalado
-which ghostty
+which alacritty
 
-# Se não estiver, reinstalar
-cd ~/dev/github/sanctum
-./install-ubuntu.sh
+# Se não estiver, instalar
+sudo apt install -y alacritty
+
+# Verificar config
+ls -la ~/.config/alacritty/
 ```
 
 ### Fontes não aparecem corretamente
