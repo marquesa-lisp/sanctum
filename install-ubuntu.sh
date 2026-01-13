@@ -297,9 +297,9 @@ fc-cache -fv > /dev/null 2>&1
 success "Cache de fontes atualizado"
 
 # ============================================
-# Passo 9: Alacritty (Terminal)
+# Passo 9: Alacritty + tmux (Terminal)
 # ============================================
-step "9/9 • Alacritty + Symlinks"
+step "9/9 • Alacritty + tmux + Symlinks"
 
 # Alacritty - terminal rápido e fácil de instalar no Ubuntu
 if command -v alacritty &> /dev/null; then
@@ -308,6 +308,15 @@ else
     info "Instalando Alacritty..."
     sudo apt install -y alacritty
     success "Alacritty instalado"
+fi
+
+# tmux - multiplexador de terminal (splits, tabs, sessões)
+if command -v tmux &> /dev/null; then
+    success "tmux já instalado"
+else
+    info "Instalando tmux..."
+    sudo apt install -y tmux
+    success "tmux instalado"
 fi
 
 # ============================================
@@ -343,13 +352,18 @@ fi
 ln -sf "$SANCTUM_DIR/config/nvim" "$HOME/.config/nvim"
 success "~/.config/nvim → sanctum/config/nvim"
 
-# Alacritty (usando config Linux sem tmux)
+# Alacritty (usando config Linux)
 mkdir -p "$HOME/.config/alacritty"
 ln -sf "$SANCTUM_DIR/config/alacritty/alacritty-linux.toml" "$HOME/.config/alacritty/alacritty.toml"
 if [[ -d "$SANCTUM_DIR/config/alacritty/custom" ]]; then
     ln -sf "$SANCTUM_DIR/config/alacritty/custom" "$HOME/.config/alacritty/custom"
 fi
 success "~/.config/alacritty → sanctum/config/alacritty (Linux)"
+
+# tmux (usando config Linux)
+backup_if_exists "$HOME/.tmux.conf"
+ln -sf "$SANCTUM_DIR/config/tmux-linux.conf" "$HOME/.tmux.conf"
+success "~/.tmux.conf → sanctum/config/tmux-linux.conf"
 
 # Clojure LSP
 mkdir -p "$HOME/.config/clojure-lsp"

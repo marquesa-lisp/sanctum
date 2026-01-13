@@ -260,12 +260,15 @@ source ~/.zshrc
 
 Após instalar o Sanctum, verifique se tudo funciona:
 
-### Terminal (Alacritty)
+### Terminal (Alacritty + tmux)
 
 - [ ] Alacritty abre corretamente (`alacritty`)
 - [ ] Fonte JetBrainsMono Nerd Font está funcionando (ícones aparecem)
-- [ ] Tema Tairiki aplicado (cores corretas)
-- [ ] O terminal inicia com tmux automaticamente (se configurado)
+- [ ] Cores do tema aparecem (fundo escuro azulado)
+- [ ] tmux funciona (`tmux`)
+- [ ] Split vertical: `Ctrl+A` depois `|` ou `\`
+- [ ] Split horizontal: `Ctrl+A` depois `-`
+- [ ] Navegar entre painéis: `Alt + setas`
 
 ### Shell (Zsh + Powerlevel10k)
 

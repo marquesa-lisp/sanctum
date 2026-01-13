@@ -180,6 +180,14 @@ else
     check_fail "alacritty config não existe"
 fi
 
+if [[ -L "$HOME/.tmux.conf" ]] && [[ "$(readlink "$HOME/.tmux.conf")" == *"sanctum"* ]]; then
+    check_pass "~/.tmux.conf → sanctum"
+elif [[ -f "$HOME/.tmux.conf" ]]; then
+    check_warn "~/.tmux.conf existe mas não é symlink para sanctum"
+else
+    check_warn "~/.tmux.conf não existe"
+fi
+
 if [[ -L "$HOME/.config/clojure-lsp/config.edn" ]]; then
     check_pass "~/.config/clojure-lsp/config.edn → sanctum"
 else
@@ -230,6 +238,12 @@ if command -v alacritty &> /dev/null; then
     check_pass "Alacritty instalado"
 else
     check_fail "Alacritty não instalado (execute ./install-ubuntu.sh)"
+fi
+
+if command -v tmux &> /dev/null; then
+    check_pass "tmux instalado"
+else
+    check_fail "tmux não instalado (execute ./install-ubuntu.sh)"
 fi
 
 # ============================================

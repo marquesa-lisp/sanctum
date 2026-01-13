@@ -1,24 +1,27 @@
-general.import = [
-  "~/.config/alacritty/custom/tairiki.toml"
-]
+# Alacritty config for Linux (Ubuntu)
+# Compatible with older versions (0.11+)
 
-[bell]
-animation = "EaseOutExpo"
-color = "0xffffff"
-duration = 0
+[shell]
+program = "/usr/bin/zsh"
+args = ["-l"]
 
-[colors]
-draw_bold_text_with_bright_colors = true
+[window]
+decorations = "full"
+dynamic_padding = true
+dynamic_title = true
+startup_mode = "Maximized"
 
-[cursor]
-style = "Block"
-unfocused_hollow = true
+[window.dimensions]
+columns = 0
+lines = 0
 
-[debug]
-log_level = "Warn"
-persistent_logging = false
-print_events = false
-render_timer = false
+[window.padding]
+x = 3
+y = 3
+
+[scrolling]
+history = 10000
+multiplier = 3
 
 [font]
 size = 13
@@ -35,48 +38,44 @@ style = "Bold"
 family = "JetBrainsMono Nerd Font Mono"
 style = "Italic"
 
-[font.offset]
-x = 0
-y = -2
+[cursor]
+style = "Block"
+unfocused_hollow = true
 
-[font.glyph_offset]
-x = 0
-y = 0
+[selection]
+save_to_clipboard = false
 
-[[keyboard.bindings]]
-action = "ResetFontSize"
-key = "Key0"
-mods = "Control"
+[mouse]
+hide_when_typing = false
 
-[[keyboard.bindings]]
-action = "IncreaseFontSize"
-key = "Equals"
-mods = "Control"
+# Tairiki-inspired colors (dark theme)
+[colors.primary]
+background = "#1a1a2e"
+foreground = "#c8d3f5"
 
-[[keyboard.bindings]]
-action = "DecreaseFontSize"
-key = "Minus"
-mods = "Control"
+[colors.cursor]
+text = "#1a1a2e"
+cursor = "#c8d3f5"
 
-[[keyboard.bindings]]
-chars = "\u001Bj"
-key = "J"
-mods = "Alt"
+[colors.normal]
+black = "#1a1a2e"
+red = "#ff757f"
+green = "#c3e88d"
+yellow = "#ffc777"
+blue = "#82aaff"
+magenta = "#c099ff"
+cyan = "#86e1fc"
+white = "#c8d3f5"
 
-[[keyboard.bindings]]
-chars = "\u001Bk"
-key = "K"
-mods = "Alt"
-
-[[keyboard.bindings]]
-chars = "\u001Bh"
-key = "H"
-mods = "Alt"
-
-[[keyboard.bindings]]
-chars = "\u001Bl"
-key = "L"
-mods = "Alt"
+[colors.bright]
+black = "#444a73"
+red = "#ff757f"
+green = "#c3e88d"
+yellow = "#ffc777"
+blue = "#82aaff"
+magenta = "#c099ff"
+cyan = "#86e1fc"
+white = "#ffffff"
 
 [[keyboard.bindings]]
 action = "Paste"
@@ -89,39 +88,16 @@ key = "C"
 mods = "Control|Shift"
 
 [[keyboard.bindings]]
-action = "ClearLogNotice"
-key = "L"
+action = "ResetFontSize"
+key = "Key0"
 mods = "Control"
 
-[mouse]
-hide_when_typing = false
+[[keyboard.bindings]]
+action = "IncreaseFontSize"
+key = "Plus"
+mods = "Control"
 
-[[mouse.bindings]]
-action = "PasteSelection"
-mouse = "Middle"
-
-[scrolling]
-history = 10000
-multiplier = 3
-
-[selection]
-save_to_clipboard = false
-semantic_escape_chars = ",│`|:\"' ()[]{}<>"
-
-[terminal.shell]
-program = "/bin/zsh"
-args = ["-l"]
-
-[window]
-decorations = "full"
-dynamic_padding = true
-dynamic_title = true
-startup_mode = "Maximized"
-
-[window.dimensions]
-columns = 0
-lines = 0
-
-[window.padding]
-x = 3
-y = 3
+[[keyboard.bindings]]
+action = "DecreaseFontSize"
+key = "Minus"
+mods = "Control"
