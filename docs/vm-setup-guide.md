@@ -221,13 +221,26 @@ Independente de estar no Mac ou Windows, execute estes comandos no Ubuntu:
 sudo apt update && sudo apt upgrade -y
 ```
 
-### 2. Instalar Git
+### 2. Instalar SPICE Guest Tools (para VMs)
+
+Se você está rodando Ubuntu em uma VM (UTM, VirtualBox, etc.), instale isso para melhor integração:
+
+```bash
+sudo apt install -y spice-vdagent spice-webdavd
+```
+
+Isso corrige:
+- ✅ Cursor do mouse invisível
+- ✅ Copiar/colar entre host e VM
+- ✅ Redimensionamento automático da tela
+
+### 3. Instalar Git
 
 ```bash
 sudo apt install -y git curl
 ```
 
-### 3. Clonar e Instalar o Sanctum
+### 4. Clonar e Instalar o Sanctum
 
 ```bash
 # Clonar o repositório
@@ -240,7 +253,7 @@ cd ~/dev/github/sanctum
 ./install-ubuntu.sh
 ```
 
-### 4. Reiniciar o Terminal
+### 5. Reiniciar o Terminal
 
 Feche e abra o terminal novamente, ou execute:
 
@@ -248,7 +261,7 @@ Feche e abra o terminal novamente, ou execute:
 source ~/.zshrc
 ```
 
-### 5. Verificar Instalação
+### 6. Verificar Instalação
 
 ```bash
 ./scripts/doctor-ubuntu.sh

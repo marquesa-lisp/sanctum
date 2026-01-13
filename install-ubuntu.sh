@@ -297,9 +297,18 @@ fc-cache -fv > /dev/null 2>&1
 success "Cache de fontes atualizado"
 
 # ============================================
-# Passo 9: Alacritty + tmux (Terminal)
+# Passo 9: SPICE Guest Tools (integração com VM)
 # ============================================
-step "9/9 • Alacritty + tmux + Symlinks"
+step "9/10 • SPICE Guest Tools (integração com VM)"
+
+info "Instalando SPICE Guest Tools para melhor integração com UTM/VM..."
+sudo apt install -y spice-vdagent spice-webdavd
+success "SPICE Guest Tools instalados (cursor do mouse e clipboard)"
+
+# ============================================
+# Passo 10: Alacritty + tmux (Terminal)
+# ============================================
+step "10/10 • Alacritty + tmux + Symlinks"
 
 # Alacritty - terminal rápido e fácil de instalar no Ubuntu
 if command -v alacritty &> /dev/null; then
