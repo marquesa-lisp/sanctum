@@ -62,6 +62,7 @@ sanctum/
 ├── docs/              # Documentação
 │   ├── iterm2-guide.md    # Guia completo do iTerm2
 │   ├── keymaps.md         # 🗺️ Guia de atalhos (Neovim, Conjure, iTerm2)
+│   ├── keymaps-ubuntu.md  # 🗺️ Guia de atalhos Ubuntu (Alacritty, tmux)
 │   └── vm-setup-guide.md  # Guia de criação de VMs (Ubuntu/macOS)
 │
 ├── clojure/           # Configurações globais do Clojure
