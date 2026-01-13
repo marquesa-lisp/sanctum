@@ -269,6 +269,20 @@ else
     success "clojure-lsp instalado"
 fi
 
+# Leiningen (gerenciador de projetos Clojure - facilita REPL com nREPL)
+if command -v lein &> /dev/null; then
+    success "Leiningen já instalado"
+else
+    info "Instalando Leiningen..."
+    curl -fsSL https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein -o /tmp/lein
+    chmod +x /tmp/lein
+    sudo mv /tmp/lein /usr/local/bin/
+    # Primeira execução baixa o JAR do Leiningen
+    info "Baixando Leiningen JAR (primeira execução)..."
+    lein version
+    success "Leiningen instalado"
+fi
+
 # ============================================
 # Passo 8: Fontes (Nerd Fonts)
 # ============================================

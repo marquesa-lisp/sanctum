@@ -302,6 +302,12 @@ else
     check_fail "clojure-lsp não instalado"
 fi
 
+if command -v lein &> /dev/null; then
+    check_pass "Leiningen $(lein version 2>&1 | head -1)"
+else
+    check_fail "Leiningen não instalado"
+fi
+
 if command -v rlwrap &> /dev/null; then
     check_pass "rlwrap instalado"
 else
