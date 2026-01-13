@@ -60,8 +60,9 @@ sanctum/
 │   └── p10k.zsh       # Configuração do tema Powerlevel10k
 │
 ├── docs/              # Documentação
-│   ├── iterm2-guide.md  # Guia completo do iTerm2
-│   └── vm-setup-guide.md # Guia de criação de VMs
+│   ├── iterm2-guide.md    # Guia completo do iTerm2
+│   ├── keymaps.md         # 🗺️ Guia de atalhos (Neovim, Conjure, iTerm2)
+│   └── vm-setup-guide.md  # Guia de criação de VMs (Ubuntu/macOS)
 │
 ├── clojure/           # Configurações globais do Clojure
 └── gnupg/             # Configurações do GPG (criptografia)
@@ -304,6 +305,15 @@ java11, java23, java24, graalvm24
 # Clojure
 clj, lt, ct
 ```
+
+## 📚 Documentação
+
+| Guia | Descrição |
+|------|-----------|
+| [🗺️ Keymaps - Guia de Sobrevivência](docs/keymaps.md) | Atalhos do Neovim, Conjure, iTerm2 e Terminal. Perfeito para iniciantes! |
+| [🖥️ iTerm2 Guide](docs/iterm2-guide.md) | Configuração completa do iTerm2 no macOS |
+
+---
 
 ## FAQ
 

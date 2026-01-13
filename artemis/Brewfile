@@ -37,6 +37,7 @@ brew "glassfish"                 # Application server
 # Clojure
 # ============================================
 brew "clojure/tools/clojure"     # Clojure CLI tools
+brew "leiningen"                 # Build tool para Clojure (lein repl, lein test)
 brew "clojure-lsp/brew/clojure-lsp-native"  # Language Server Protocol
 
 # ============================================
