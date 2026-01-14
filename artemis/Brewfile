@@ -26,12 +26,12 @@ brew "gh"                        # GitHub CLI
 # ============================================
 # Java & JVM
 # ============================================
-brew "openjdk"                   # OpenJDK (última versão)
-brew "openjdk@11"                # OpenJDK 11 (LTS)
+brew "openjdk@21"                # OpenJDK 21 (LTS) - recomendado
 brew "openjdk@17"                # OpenJDK 17 (LTS)
-brew "openjdk@21"                # OpenJDK 21 (LTS)
+brew "openjdk@11"                # OpenJDK 11 (LTS)
+brew "jdtls"                     # Java Language Server (para Neovim LSP)
 brew "maven"                     # Build tool para Java
-brew "glassfish"                 # Application server
+brew "gradle"                    # Build tool para Java (alternativa ao Maven)
 
 # ============================================
 # Clojure

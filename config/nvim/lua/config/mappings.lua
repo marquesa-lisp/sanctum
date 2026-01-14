@@ -21,4 +21,26 @@ local function clear_hidden_buffers()
   end
   return nil
 end
-return vim.keymap.set("n", "<Leader>bd", clear_hidden_buffers, {noremap = true, silent = false})
+vim.keymap.set("n", "<Leader>bd", clear_hidden_buffers, {noremap = true, silent = false})
+
+-- ============================================
+-- Java keymaps
+-- ============================================
+
+-- Run Java project (compiles all and runs Main)
+local function run_java_main()
+  vim.cmd("write")
+  local dir = vim.fn.expand("%:p:h")
+  vim.cmd("!cd " .. dir .. " && javac *.java vo/*.java 2>/dev/null; javac *.java 2>/dev/null; java Main")
+end
+vim.keymap.set("n", "<Leader>rj", run_java_main, {noremap = true, silent = false, desc = "Run Java Main"})
+
+-- Run current Java file (for simple single-file programs)
+local function run_java_current()
+  vim.cmd("write")
+  local file = vim.fn.expand("%:t")
+  local name = vim.fn.expand("%:t:r")
+  local dir = vim.fn.expand("%:p:h")
+  vim.cmd("!cd " .. dir .. " && javac " .. file .. " && java " .. name)
+end
+return vim.keymap.set("n", "<Leader>rJ", run_java_current, {noremap = true, silent = false, desc = "Run current Java file"})

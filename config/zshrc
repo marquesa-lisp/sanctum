@@ -79,16 +79,20 @@ alias start-transactor-dev='~/datomic/datomic-pro-1.0.7187/bin/transactor ~/dato
 
 # Java Home (macOS)
 export JAVA_11_HOME=$(/usr/libexec/java_home -v11 2>/dev/null)
+export JAVA_17_HOME=$(/usr/libexec/java_home -v17 2>/dev/null)
+export JAVA_21_HOME=$(/usr/libexec/java_home -v21 2>/dev/null)
 export JAVA_23_HOME=$(/usr/libexec/java_home -v23 2>/dev/null)
 export JAVA_24_HOME=$(/usr/libexec/java_home -v24 2>/dev/null) # graalvm 24
 
 alias java11='export JAVA_HOME=$JAVA_11_HOME'
+alias java17='export JAVA_HOME=$JAVA_17_HOME'
+alias java21='export JAVA_HOME=$JAVA_21_HOME'
 alias java23='export JAVA_HOME=$JAVA_23_HOME'
 alias java24='export JAVA_HOME=$JAVA_24_HOME'
 alias graalvm24='export JAVA_HOME=$JAVA_24_HOME'
 
-# Default Java
-export JAVA_HOME=$JAVA_23_HOME
+# Default Java (LTS)
+export JAVA_HOME=$JAVA_21_HOME
 
 # jdklink function to create a symlink for OpenJDK (if not automatically linked)
 jdklink() {

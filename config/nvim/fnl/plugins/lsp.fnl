@@ -43,6 +43,16 @@
               (vim.lsp.config :fennel_language_server {:settings {:fennel {:diagnostics {:globals ["vim" "nvim"]}}}})
               (vim.lsp.enable :fennel_language_server)
 
+              ;; Java
+              (vim.lsp.config :jdtls {:root_dir (fn [bufnr on_dir]
+                                                  (let [pattern (vim.api.nvim_buf_get_name bufnr)
+                                                        util (require :lspconfig.util)
+                                                        fallback (vim.loop.cwd)
+                                                        patterns [:pom.xml :build.gradle :build.gradle.kts :.git :settings.gradle :settings.gradle.kts]
+                                                        root ((util.root_pattern patterns) pattern)]
+                                                    (on_dir (or root fallback))))})
+              (vim.lsp.enable :jdtls)
+
               ;; Go
               (vim.lsp.enable :gopls)
 

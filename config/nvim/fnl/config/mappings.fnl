@@ -29,3 +29,25 @@
     (when (= buffer.hidden 1) (vim.cmd.bd buffer.bufnr))))
 
 (vim.keymap.set :n :<Leader>bd clear-hidden-buffers {:noremap true :silent false})
+
+;; ============================================
+;; Java keymaps
+;; ============================================
+
+;; Run Java project (compiles all and runs Main)
+(fn run-java-main []
+  (vim.cmd :write)
+  (let [dir (vim.fn.expand "%:p:h")]
+    (vim.cmd (.. "!cd " dir " && javac *.java vo/*.java 2>/dev/null; javac *.java 2>/dev/null; java Main"))))
+
+(vim.keymap.set :n :<Leader>rj run-java-main {:noremap true :silent false :desc "Run Java Main"})
+
+;; Run current Java file (for simple single-file programs)
+(fn run-java-current []
+  (vim.cmd :write)
+  (let [file (vim.fn.expand "%:t")
+        name (vim.fn.expand "%:t:r")
+        dir (vim.fn.expand "%:p:h")]
+    (vim.cmd (.. "!cd " dir " && javac " file " && java " name))))
+
+(vim.keymap.set :n :<Leader>rJ run-java-current {:noremap true :silent false :desc "Run current Java file"})
