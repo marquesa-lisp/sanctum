@@ -33,10 +33,12 @@ Ele existe para:
 ```
 sanctum/
 ├── install.sh         # 🚀 Script de instalação automática (macOS)
-├── install-ubuntu.sh  # 🐧 Script de instalação automática (Ubuntu)
+├── install-ubuntu.sh  # 🐧 Script de instalação automática (Ubuntu/VM)
+├── install-windows.sh # 🪟 Script de instalação automática (Windows WSL2)
 ├── scripts/
-│   ├── doctor.sh      # 🏥 Verifica se tudo está OK (macOS)
-│   └── doctor-ubuntu.sh # 🏥 Verifica se tudo está OK (Ubuntu)
+│   ├── doctor.sh        # 🏥 Verifica se tudo está OK (macOS)
+│   ├── doctor-ubuntu.sh # 🏥 Verifica se tudo está OK (Ubuntu)
+│   └── doctor-windows.sh # 🏥 Verifica se tudo está OK (WSL2)
 │
 ├── artemis/           # Configurações específicas para macOS (MacBook)
 │   ├── aerospace/     # Window manager (tiling)
@@ -63,7 +65,8 @@ sanctum/
 │   ├── iterm2-guide.md    # Guia completo do iTerm2
 │   ├── keymaps.md         # 🗺️ Guia de atalhos (Neovim, Conjure, iTerm2)
 │   ├── keymaps-ubuntu.md  # 🗺️ Guia de atalhos Ubuntu (Alacritty, tmux)
-│   └── vm-setup-guide.md  # Guia de criação de VMs (Ubuntu/macOS)
+│   ├── vm-setup-guide.md  # Guia de criação de VMs (Ubuntu/macOS)
+│   └── wsl2-setup-guide.md # 🪟 Guia WSL2 + Alacritty (Windows)
 │
 ├── clojure/           # Configurações globais do Clojure
 └── gnupg/             # Configurações do GPG (criptografia)
@@ -145,12 +148,38 @@ Isso irá instalar **tudo automaticamente**:
 - Zsh + Oh My Zsh + Powerlevel10k
 - Neovim, ripgrep, lazygit, fzf
 - Java (OpenJDK 11, 17 e 21)
-- Clojure CLI + clojure-lsp
-- Ghostty (terminal)
+- Clojure CLI + clojure-lsp + Leiningen
+- Alacritty + tmux (terminal)
 - Fontes (Nerd Fonts)
 - Criar todos os symlinks
 
 > 📖 Para criar uma VM Ubuntu para testar, veja o [Guia de Criação de VMs](docs/vm-setup-guide.md)
+
+### Windows (WSL2)
+
+Para Windows, usamos **WSL2** (Windows Subsystem for Linux) + **Alacritty**.
+
+> 💡 **Recomendado para:** PCs com pouca RAM (4-8 GB) ou processadores mais fracos.
+
+**Passo 1:** Instalar WSL2 (no PowerShell como Admin):
+```powershell
+wsl --install -d Ubuntu-24.04
+```
+
+**Passo 2:** Após reiniciar, abrir o Ubuntu e executar:
+```bash
+sudo apt update && sudo apt install -y git curl
+git clone https://github.com/marquesa-lisp/sanctum.git ~/dev/github/sanctum
+cd ~/dev/github/sanctum
+./install-windows.sh
+```
+
+**Passo 3:** Instalar Alacritty no Windows (PowerShell):
+```powershell
+winget install Alacritty.Alacritty
+```
+
+> 📖 Para instruções completas, veja o [Guia WSL2 + Alacritty](docs/wsl2-setup-guide.md)
 
 ---
 
@@ -163,9 +192,14 @@ Após a instalação, você pode verificar se tudo está OK:
 ~/dev/github/sanctum/scripts/doctor.sh
 ```
 
-**Ubuntu:**
+**Ubuntu (VM):**
 ```bash
 ~/dev/github/sanctum/scripts/doctor-ubuntu.sh
+```
+
+**Windows (WSL2):**
+```bash
+~/dev/github/sanctum/scripts/doctor-windows.sh
 ```
 
 ---
