@@ -3,6 +3,7 @@ local _local_1_ = require("nfnl.module")
 local autoload = _local_1_["autoload"]
 local str = autoload("nfnl.string")
 local core = autoload("nfnl.core")
+vim.filetype.add({extension = {cljd = "clojure"}})
 vim.api.nvim_create_autocmd({"FocusGained", "BufEnter"}, {pattern = {"*"}, command = "checktime"})
 vim.api.nvim_create_autocmd({"FileType"}, {pattern = {"rust"}, command = "setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab"})
 vim.api.nvim_create_autocmd({"FileType"}, {pattern = {"go"}, command = "setlocal tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab"})

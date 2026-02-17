@@ -5,21 +5,22 @@
               (treesitter.setup 
                 {:highlight {:enable true}
                  :indent {:enable true}
-                 :ensure_installed [:bash
-                                    :clojure
-                                    :commonlisp
-                                    :dockerfile
-                                    :fennel
-                                    :go
-                                    :html
-                                    :java
-                                    :javascript
-                                    :typescript
-                                    :json
-                                    :lua
-                                    :markdown
-                                    :nix
-                                    :ocaml
-                                    :rust
-                                    :yaml
-                                    :zig]})))}]
+:ensure_installed [:bash
+                                   :clojure
+                                   :commonlisp
+                                   :dart
+                                   :dockerfile
+                                   :fennel
+                                   :go
+                                   :html
+                                   :java
+                                   :javascript
+                                   :typescript
+                                   :json
+                                   :lua
+                                   :markdown
+                                   :nix
+                                   :ocaml
+                                   :rust
+                                   :yaml
+                                   :zig]})))}]

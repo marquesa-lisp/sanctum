@@ -2,6 +2,9 @@
 (local str (autoload :nfnl.string))
 (local core (autoload :nfnl.core))
 
+;; ClojureDart: associate .cljd files with clojure filetype
+(vim.filetype.add {:extension {:cljd "clojure"}})
+
 ;; refresh changed content
 (vim.api.nvim_create_autocmd
   [:FocusGained :BufEnter]
