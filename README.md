@@ -12,10 +12,6 @@
 
 ## O que é o Sanctum?
 
-**Sanctum** é o meu santuário pessoal, um conjunto cuidadosamente curado de arquivos de configuração usados em sistemas Unix, Linux e macOS.
-
-Mais do que simples configurações, este repositório representa a base do meu ambiente de desenvolvimento, pensado para ser reproduzível, versionado e evoluir com o tempo.
-
 Ele existe para:
 - 📦 **Preservar** e fazer backup das minhas configurações pessoais
 - 🔄 **Sincronizar** o ambiente entre múltiplas máquinas

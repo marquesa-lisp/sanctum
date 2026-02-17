@@ -2,8 +2,7 @@
 
 > *"No Vim, você não edita texto. Você **compõe ações** sobre movimentos."*
 
-Este guia foi feito para quem está começando no Neovim + iTerm2. 
-Não precisa decorar tudo — use como referência no dia a dia! 📚
+Este guia foi feito para quem está começando no Neovim + iTerm2. 📚
 
 ---
 
