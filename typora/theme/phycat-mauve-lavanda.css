@@ -1,0 +1,462 @@
+@import url(./phycat/phycat.light.css);
+
+:root {
+  /* ─── Heading icons (idênticos ao mauve light) ─── */
+  --h1-icon-shape: url("data:image/svg+xml;utf8,<svg fill='rgba(255, 176, 176, 0.5)' height='24' viewBox='0 0 32 32' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M4.8 29.714v0c-1.371 0-2.514-1.143-2.514-2.514v0c0-1.371 1.143-2.514 2.514-2.514v0c1.371 0 2.514 1.143 2.514 2.514v0c0.114 1.371-1.029 2.514-2.514 2.514z'/></svg>") no-repeat center;
+  --h2-icon-shape: url("data:image/svg+xml;utf8,<svg fill='rgba(255, 176, 176, 0.5)' height='24' viewBox='0 0 32 32' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M11.429 25.143c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM4.571 18.286c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286z'/></svg>") no-repeat center;
+  --h3-icon-shape: url("data:image/svg+xml;utf8,<svg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'><path d='M4.571 25.143c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM4.571 18.286c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM11.429 25.143c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286z'/></svg>");
+  --h4-icon-shape: url("data:image/svg+xml;utf8,<svg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'><path d='M4.571 25.143c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM4.571 18.286c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM11.429 25.143c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM11.429 22.857c1.257 0 2.286-1.029 2.286-2.286s-1.029-2.286-2.286-2.286-2.286 1.029-2.286 2.286 1.029 2.286 2.286 2.286z'/></svg>");
+  --h5-icon-shape: url("data:image/svg+xml;utf8,<svg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'><path d='M4.571 18.286c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM11.429 22.857c1.257 0 2.286-1.029 2.286-2.286s-1.029-2.286-2.286-2.286-2.286 1.029-2.286 2.286 1.029 2.286 2.286 2.286zM4.571 25.143c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM11.429 25.143c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM4.571 11.429c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286z'/></svg>");
+  --h6-icon-shape: url("data:image/svg+xml;utf8,<svg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'><path d='M4.571 25.143c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM4.571 18.286c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM4.571 11.429c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM11.429 18.286c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM11.429 25.143c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM11.429 16c1.257 0 2.286-1.029 2.286-2.286s-1.029-2.286-2.286-2.286-2.286 1.029-2.286 2.286 1.029 2.286 2.286 2.286z'/></svg>");
+
+  /* ─── Textura de fundo (mesma do mauve) ─── */
+  --bg-shape-cross: url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h30v30H0z' fill='none'/%3E%3Cpath d='M0 0L15 15M30 0L15 15M0 30L15 15M30 30L15 15' stroke='black' stroke-width='0.4'/%3E%3C/svg%3E");
+  --bg-shape-none: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=");
+  --bg-style: var(--bg-shape-cross);
+
+  --max-width: 1250px;
+
+  /* ─── Paleta mauve (mesma identidade) ─── */
+  --head-title-color: #ba68c8;
+  --head-title-h2-color: #fff;
+  --head-title-h2-background: linear-gradient(to right, #D8B4E2, #A06EB4, #D8B4E2);
+
+  --element-color: #A06EB4;
+  --element-color-deep: #6A3F7A;
+  --element-color-shallow: #D4B6E0;
+  --element-color-so-shallow: #E8DCF0;
+  --element-color-soo-shallow: #F0E8F5;
+  --glass-bg-color: #f0d7f91a;
+
+  --element-color-linecode: #5E35B1;
+  --element-color-linecode-background: #E8DDF0;
+
+  --appui-color: #A06EB4;
+  --appui-color-icon: #A06EB4;
+  --appui-color-text: #4A235A;
+  --primary-color: #A06EB4;
+
+  --rawblock-edit-panel-bd: var(--element-color-soo-shallow);
+}
+
+
+/* ══════════════════════════════════════════════════════
+   Overrides: troca os brancos puros por lavanda suave
+   Mantém 100% do estilo/layout do phycat.light.css
+   ══════════════════════════════════════════════════════ */
+
+html {
+    background-color: #F0E8F5;
+}
+
+body {
+    background-color: #F0E8F5 !important;
+}
+
+content {
+    background-color: #F0E8F5;
+}
+
+#write {
+    color: #2D2035;
+}
+
+#write p {
+    color: #3D3245;
+}
+
+#write blockquote {
+    color: #4A3D55;
+}
+
+#write blockquote p {
+    color: #4A3D55;
+}
+
+#write a {
+    color: #6A3F7A;
+}
+
+#write h5,
+#write h6 {
+    color: #3D3245;
+}
+
+pre.md-meta-block {
+    color: #4A3D55;
+    background-color: #E8DCF0;
+}
+
+pre.md-meta-block:hover {
+    background-color: #F0E8F5;
+}
+
+.md-fences:not([lang=mermaid])::before {
+    background-color: #EDE4F3;
+}
+
+.cm-s-inner.CodeMirror {
+    background-color: #EDE4F3;
+}
+
+.CodeMirror-gutters {
+    background: #EDE4F3;
+}
+
+#write .md-footnote {
+    color: #4A3D55;
+}
+
+.task-list-item input:not(:checked)::before {
+    background: #F0E8F5;
+}
+
+.task-list-item input:checked + p {
+    color: #8A7C9E;
+}
+
+#write h4::before {
+    background-color: #F0E8F5;
+}
+
+#write .md-toc-inner {
+    color: #4A3D55;
+}
+
+.edgeLabel div {
+    background-color: #F0E8F5 !important;
+}
+
+.edgeLabel rect {
+    fill: #F0E8F5 !important;
+}
+
+.labelBkg {
+    fill: #F0E8F5 !important;
+    background-color: #F0E8F5 !important;
+}
+
+#typora-sidebar {
+    background-color: #EDE4F3;
+}
+
+#file-library-search-panel {
+    background-color: #EDE4F3;
+}
+
+.typora-export #write {
+    background-color: #F0E8F5;
+}
+
+.typora-export body {
+    background-color: #EDE4F3;
+}
+
+.typora-export-sidebar {
+    background-color: #EDE4F3;
+}
+
+#write .md-table table th {
+    color: #2D2035;
+}
+
+#write .md-table table td {
+    color: #3D3245;
+}
+
+#write .md-table table tr:nth-child(2n) {
+    background-color: #E8DCF0;
+}
+
+.megamenu-content {
+    background: #EDE4F3 !important;
+}
+
+#megamenu-menu-sidebar,
+.megamenu-menu {
+    background-color: #E8DCF0 !important;
+}
+
+/* ─── Inline code: mais discreto, não compete com bold ─── */
+#write code:not(.md-fencescode) {
+    font-size: .85em;
+    padding: 2px 5px;
+    border-radius: 4px;
+    border: 1px solid rgba(160, 110, 180, 0.18);
+    box-shadow: none;
+    vertical-align: baseline;
+}
+
+#write code:not(.md-fencescode):hover {
+    transform: none;
+    box-shadow: none;
+}
+
+
+/* ══════════════════════════════════════════════════════
+   Code block: language tooltip + fundo lavanda
+   ══════════════════════════════════════════════════════ */
+
+.md-fences.md-focus {
+    overflow: visible !important;
+}
+
+.md-fences .code-tooltip {
+    display: block !important;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity .25s ease, visibility .25s ease;
+    background-color: #E8DCF0;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 4px 12px rgba(160, 110, 180, 0.15);
+    z-index: 200;
+}
+
+.md-fences.md-focus .code-tooltip {
+    opacity: 1;
+    visibility: visible;
+}
+
+.md-fences .code-tooltip input {
+    background-color: #F0E8F5;
+    border: 1px solid rgba(160, 110, 180, 0.30);
+    border-radius: 4px;
+    color: #3D3245;
+    font-family: CascadiaCode, "Lucida Console", Consolas, Courier, monospace;
+    font-size: 12px;
+    padding: 3px 10px;
+    outline: none;
+    transition: border-color .2s ease;
+}
+
+.md-fences .code-tooltip input:focus {
+    border-color: #A06EB4;
+    box-shadow: 0 0 0 2px rgba(160, 110, 180, 0.18);
+}
+
+.cm-s-inner.CodeMirror {
+    background: #EDE4F3 !important;
+    color: #3D3245;
+}
+
+.CodeMirror-gutters {
+    background: #EDE4F3 !important;
+    border-right: 1px solid rgba(160, 110, 180, 0.10);
+}
+
+.CodeMirror-linenumber {
+    color: #B8A5C8 !important;
+}
+
+.md-fences:not([lang=mermaid])::before {
+    background-color: #E8DCF0;
+}
+
+
+/* ══════════════════════════════════════════════════════
+   Syntax highlighting — paleta pastel lavanda
+   12 cores distintas, cada token com identidade própria
+   ══════════════════════════════════════════════════════
+
+   Roxo orchid   #8B5DB6  ── keyword, atom
+   Azul pastel   #4A88C8  ── property
+   Azul safira   #3A7DB8  ── def, header, link
+   Verde água    #2E9E9E  ── operator, builtin
+   Verde sálvia  #4A9A4A  ── string, quote
+   Laranja       #D08040  ── number, attribute
+   Rosa          #C85A72  ── tag
+   Âmbar         #A89030  ── variable-2
+   Vermelho rosé #B85565  ── variable
+   Mauve-rosa    #B06898  ── meta
+   Plum          #7060A0  ── variable-3
+   Lavanda-cinza #8A80A8  ── comment
+   Plum escuro   #6A5D80  ── bracket
+
+   ══════════════════════════════════════════════════════ */
+
+.cm-s-inner .cm-keyword,
+.cm-keyword {
+    color: #8B5DB6 !important;
+    font-weight: 700 !important;
+}
+
+.cm-s-inner .cm-variable,
+.cm-variable {
+    color: #B85565 !important;
+}
+
+.cm-s-inner .cm-variable-2,
+.cm-variable-2 {
+    color: #A89030 !important;
+    font-weight: 400 !important;
+}
+
+.cm-s-inner .cm-variable-3,
+.cm-variable-3 {
+    color: #7060A0 !important;
+    font-weight: 400 !important;
+}
+
+.cm-s-inner .cm-def,
+.cm-def {
+    color: #3A7DB8 !important;
+}
+
+.cm-s-inner .cm-property,
+.cm-property {
+    color: #4A88C8 !important;
+}
+
+.cm-s-inner .cm-attribute,
+.cm-attribute {
+    color: #D08040 !important;
+}
+
+.cm-s-inner .cm-string,
+.cm-string {
+    color: #4A9A4A !important;
+    font-variant-ligatures: common-ligatures !important;
+}
+
+.cm-s-inner .cm-comment,
+.cm-comment,
+.md-comment {
+    color: #8A80A8 !important;
+    font-style: italic;
+}
+
+.cm-s-inner .cm-tag,
+.cm-tag {
+    color: #C85A72 !important;
+    font-weight: 700 !important;
+}
+
+.cm-s-inner .cm-tag:not(.cm-bracket) {
+    font-weight: 700 !important;
+}
+
+.cm-s-inner .cm-bracket,
+.cm-bracket {
+    color: #6A5D80 !important;
+}
+
+.cm-s-inner .cm-operator,
+.cm-operator {
+    color: #2E9E9E !important;
+}
+
+.cm-s-inner .cm-number,
+.cm-number {
+    color: #D08040 !important;
+}
+
+.cm-s-inner .cm-meta,
+.cm-meta {
+    color: #B06898 !important;
+    font-weight: 700 !important;
+}
+
+.cm-s-inner .cm-builtin,
+.cm-builtin {
+    color: #2E9E9E !important;
+    font-style: italic;
+}
+
+.cm-s-inner .cm-link,
+.cm-link {
+    color: #3A7DB8 !important;
+    text-decoration: underline;
+}
+
+.cm-s-inner .cm-atom,
+.cm-s-inner.cm-atom {
+    color: #8B5DB6 !important;
+    font-weight: 700;
+}
+
+.cm-s-inner .cm-header,
+.cm-s-inner.cm-header {
+    color: #3A7DB8 !important;
+}
+
+.cm-s-inner .cm-quote,
+.cm-s-inner.cm-quote {
+    color: #4A9A4A !important;
+}
+
+.cm-s-inner .cm-hr {
+    color: #6A5D80;
+}
+
+.cm-s-inner .cm-negative {
+    color: #C85A72;
+}
+
+.cm-s-inner .cm-positive {
+    color: #4A9A4A;
+}
+
+.cm-s-inner .cm-string-2 {
+    color: #D08040;
+}
+
+.CodeMirror-selected,
+.CodeMirror-selectedtext {
+    background: rgba(160, 110, 180, 0.18) !important;
+}
+
+.CodeMirror div.CodeMirror-cursor {
+    border-left: 2px solid #A06EB4;
+}
+
+
+/* ─── Source mode (typora-default) ─── */
+
+.cm-s-typora-default .cm-header,
+.cm-s-typora-default .cm-property {
+    color: #C85A72 !important;
+}
+
+.cm-s-typora-default .cm-string {
+    color: #8B5DB6;
+}
+
+.cm-s-typora-default .cm-atom {
+    color: #8A80A8;
+    font-style: italic;
+}
+
+.cm-s-typora-default .cm-number {
+    color: #D08040;
+    font-style: normal !important;
+}
+
+.cm-s-typora-default .cm-link {
+    color: #3A7DB8;
+}
+
+.cm-s-typora-default .cm-comment,
+.cm-s-typora-default .cm-code {
+    color: #4A9A4A;
+}
+
+.cm-s-typora-default .cm-tag {
+    color: #3A7DB8;
+}
+
+.cm-s-typora-default .cm-strong,
+.cm-s-typora-default .cm-em,
+.cm-s-typora-default .cm-del {
+    color: #D08040;
+}
+
+.cm-s-typora-default .cm-block-start.cm-variable-2 {
+    color: #C85A72;
+}
+
+
+@media print {
+    body {
+        background-color: #F0E8F5 !important;
+    }
+}
