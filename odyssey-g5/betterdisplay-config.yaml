@@ -5,7 +5,12 @@ OS: macOS
 Preset: Aline Workstation v1
 
 Brightness: 100
-Contrast: +8
+Contrast: +4
 Gamma: +30
 Color Temperature: +5
 Gain: 0
+
+notes:
+    - optimized for dark mode
+    - coding and long reading sessions
+    - avoid washed blacks
